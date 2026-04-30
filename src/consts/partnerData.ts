@@ -5,6 +5,7 @@ export interface Partner {
   description: string;
   accent: string;
   logo: ImageMetadata;
+  email: string;
 }
 
 import inspectorLogo from '~assets/partners/inspector.svg';
@@ -21,6 +22,7 @@ export const PARTNER_DATA: Partner[] = [
       'Observability backbone for PHP. Ships the Monitoring pillar and runs the agentic playbook end-to-end on customer engagements.',
     accent: 'monitoring',
     logo: inspectorLogo,
+    email: 'support@inspector.dev',
   },
   {
     name: 'To Bee',
@@ -30,6 +32,7 @@ export const PARTNER_DATA: Partner[] = [
       'Software house and system integrator. Delivers Neuron AI inside CRMs, E-Commerce, and bespoke PHP platforms across Italy.',
     accent: 'vector',
     logo: tobeeLogo,
+    email: 'info@tobee.co',
   },
   {
     name: 'Regolo.ai',
@@ -39,15 +42,17 @@ export const PARTNER_DATA: Partner[] = [
       'AI models inference with Zero Data Retention in EU Data Center, powered by 100% green carbon-free energy.',
     accent: 'agents',
     logo: regoloLogo,
+    email: 'info@regolo.ai',
   },
   {
     name: '3D0',
     region: 'EU',
     location: 'Italy',
     description:
-      'Software house specialized in Laravel and Angular development.',
+      'Digital factory specialized in Laravel and Angular development. Open-Source mindset, Data Sovereignty, Radical Transparency.',
     accent: 'workflows',
     logo: threeDZeroLogo,
+    email: 'info@3d0.it',
   },
 ];
 

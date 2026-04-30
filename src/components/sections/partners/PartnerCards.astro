@@ -28,7 +28,7 @@ const tk = ACCENT_TOKEN[partner.accent] || ACCENT_TOKEN.agents;
   </Typography>
   <div class="bottom">
     <a
-      href={`mailto:support@inspector.dev?subject=Intro%20to%20${encodeURIComponent(partner.name)}`}
+      href={`mailto:${partner.email}?subject=Intro%20to%20${encodeURIComponent(partner.name)}`}
       class="contact"
     >
       CONTACT →
