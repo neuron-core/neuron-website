@@ -2,9 +2,7 @@
 import { Code } from 'astro:components';
 import Typography from '~components/ui/Typography.astro';
 
-const code = `<?php
-
-class CustomerServiceAgent extends Agent
+const code = `class CustomerServiceAgent extends Agent
 {
     protected function provider(): AIProviderInterface
     {
@@ -34,9 +32,11 @@ class CustomerServiceAgent extends Agent
 }
 
 // Use the agent in your application
-$response = CustomerServiceAgent::make()->chat(
-    new UserMessage('Give me the daily average of sales in the last 30 days?')
-)->getMessage();
+$response = CustomerServiceAgent::make()
+    ->chat(
+        new UserMessage('Give me the daily average of sales in the last 30 days!')
+    )
+    ->getMessage();
 
 echo $response->getContent();
 `;
@@ -58,8 +58,8 @@ echo $response->getContent();
         color="subtle"
         styling="paragraphL"
       >
-        Create a functional AI agent with clean, understandable PHP code. No
-        complex setup, no boilerplate—just elegant, production-ready
+        Create fully-functional AI agents with clean, understandable PHP code. No
+        complex setup, no boilerplate, just elegant, production-ready
         implementation.
       </Typography>
     </div>
