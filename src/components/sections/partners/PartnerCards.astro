@@ -27,9 +27,12 @@ const tk = ACCENT_TOKEN[partner.accent] || ACCENT_TOKEN.agents;
     {partner.description}
   </Typography>
   <div class="bottom">
+    <a href={partner.website} target="_blank" rel="noopener noreferrer" class="footerLink">
+      WEBSITE →
+    </a>
     <a
       href={`mailto:${partner.email}?subject=Intro%20to%20${encodeURIComponent(partner.name)}`}
-      class="contact"
+      class="footerLink"
     >
       CONTACT →
     </a>
@@ -101,10 +104,11 @@ const tk = ACCENT_TOKEN[partner.accent] || ACCENT_TOKEN.agents;
   .bottom {
     display: flex;
     align-items: center;
+    gap: var(--s-24);
     padding-top: var(--s-12);
   }
 
-  .contact {
+  .footerLink {
     font-family: GeistPixel, sans-serif;
     font-size: 1.3rem;
     letter-spacing: 0.04em;

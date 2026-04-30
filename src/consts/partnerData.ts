@@ -5,6 +5,7 @@ export interface Partner {
   description: string;
   accent: string;
   logo: ImageMetadata;
+  website: string;
   email: string;
 }
 
@@ -22,6 +23,7 @@ export const PARTNER_DATA: Partner[] = [
       'Observability backbone for PHP. Ships the Monitoring pillar and runs the agentic playbook end-to-end on customer engagements.',
     accent: 'monitoring',
     logo: inspectorLogo,
+    website: 'https://inspector.dev',
     email: 'support@inspector.dev',
   },
   {
@@ -29,9 +31,10 @@ export const PARTNER_DATA: Partner[] = [
     region: 'EU',
     location: 'Italy',
     description:
-      'Software house and system integrator. Delivers Neuron AI inside CRMs, E-Commerce, and bespoke PHP platforms across Italy.',
+      'Software house and system integrator. Delivers Neuron AI inside CRMs, E-Commerce, and bespoke PHP platforms.',
     accent: 'vector',
     logo: tobeeLogo,
+    website: 'https://tobee.co',
     email: 'info@tobee.co',
   },
   {
@@ -42,6 +45,7 @@ export const PARTNER_DATA: Partner[] = [
       'AI models inference with Zero Data Retention in EU Data Center, powered by 100% green carbon-free energy.',
     accent: 'agents',
     logo: regoloLogo,
+    website: 'https://regolo.ai',
     email: 'info@regolo.ai',
   },
   {
@@ -52,6 +56,7 @@ export const PARTNER_DATA: Partner[] = [
       'Digital factory specialized in Laravel and Angular development. Open-Source mindset, Data Sovereignty, Radical Transparency.',
     accent: 'workflows',
     logo: threeDZeroLogo,
+    website: 'https://www.3d0.it',
     email: 'info@3d0.it',
   },
 ];
