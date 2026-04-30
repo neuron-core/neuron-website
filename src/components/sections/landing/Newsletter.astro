@@ -1,0 +1,300 @@
+---
+import Typography from '~components/ui/Typography.astro';
+import checkIcon from '~assets/icons/check.svg';
+---
+
+<div class="section">
+  <div class="wrapper">
+    <div class="content">
+      <div class="leftSide">
+        <Typography tag="h2" styling="headingL" class="title">
+          Join the PHP AI<span class="desktopBreak"><br /></span> revolution
+        </Typography>
+
+        <Typography
+          tag="p"
+          styling="paragraphL"
+          color="subtle"
+          class="description"
+        >
+          Get early access to new features, exclusive tutorials, and expert tips
+          for building AI agents in PHP. Join a community of PHP developers
+          pioneering the future of AI development.
+        </Typography>
+      </div>
+
+      <form class="rightSide" id="newsletterForm" novalidate>
+        <div class="fields">
+          <input
+            type="text"
+            name="name"
+            class="input"
+            placeholder="Your name"
+            required
+          />
+          <input
+            type="text"
+            name="email"
+            class="input"
+            placeholder="your@email.com"
+            required
+          />
+
+          <label class="consent">
+            <input type="checkbox" name="consent" class="checkbox" required />
+            <span class="checkboxBox">
+              <img src={checkIcon.src} alt="" class="checkmark" />
+            </span>
+            <Typography tag="span" styling="paragraphS" color="weak">
+              Registering I accept to receive the occasionally newsletter from
+              the Nueron AI team.
+            </Typography>
+          </label>
+        </div>
+
+        <button type="submit" class="submitButton">SUBSCRIBE</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="stripes">
+    <div class="stripe stripeAgents"></div>
+    <div class="stripe stripeWorkflows"></div>
+    <div class="stripe stripeVector"></div>
+    <div class="stripe stripeMonitoring"></div>
+  </div>
+</div>
+
+<script>
+  const subscribeToNewsletter = async (data: {
+    name: string;
+    email: string;
+    consent: boolean;
+  }) => {
+    // TODO: implement HTTP call
+    console.log('subscribeToNewsletter', data);
+  };
+
+  const form = document.getElementById(
+    'newsletterForm',
+  ) as HTMLFormElement | null;
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(form);
+    const name = String(formData.get('name') ?? '').trim();
+    const email = String(formData.get('email') ?? '').trim();
+    const consent = formData.get('consent') === 'on';
+    const emailInput = form.querySelector<HTMLInputElement>(
+      'input[name="email"]',
+    );
+
+    emailInput?.setCustomValidity('');
+
+    if (!name || !consent) {
+      form.reportValidity();
+      return;
+    }
+
+    if (!emailRegex.test(email)) {
+      emailInput?.setCustomValidity('Please enter a valid email address');
+      form.reportValidity();
+      return;
+    }
+
+    subscribeToNewsletter({ name, email, consent });
+  });
+</script>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .section {
+    width: 100%;
+  }
+
+  .wrapper {
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    border: 1px solid var(--border-soft);
+  }
+
+  .stripes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    width: 100%;
+    max-width: var(--max-width);
+    height: 5.6rem;
+    margin: 0 auto;
+  }
+
+  .stripeAgents {
+    background-color: var(--bg-agents-base);
+  }
+
+  .stripeWorkflows {
+    background-color: var(--bg-workflows-base);
+  }
+
+  .stripeVector {
+    background-color: var(--bg-vector-base);
+  }
+
+  .stripeMonitoring {
+    background-color: var(--bg-monitoring-base);
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-46);
+
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-32) var(--s-20);
+
+    @include media-min('sm') {
+      padding: var(--s-46) var(--s-32);
+    }
+
+    @include media-min('md') {
+      grid-template-columns: 3fr 2fr;
+      gap: var(--s-64);
+      padding: var(--s-40);
+    }
+  }
+
+  .leftSide {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-36);
+  }
+
+  .leftSide :global(.description) {
+    margin: 0;
+  }
+
+  .leftSide :global(.desktopBreak) {
+    display: none;
+
+    @include media-min('md') {
+      display: inline;
+    }
+  }
+
+  @include media-min('md') {
+    .leftSide :global(.description) {
+      max-width: 80%;
+    }
+  }
+
+  .rightSide {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-24);
+  }
+
+  .fields {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-12);
+  }
+
+  .input {
+    width: 100%;
+    height: 4.6rem;
+    padding: var(--s-10) var(--s-16);
+    border: 1px solid var(--border-subtle);
+
+    font-family: GeistPixel, sans-serif;
+    font-size: 1.4rem;
+    color: var(--text-primary);
+
+    background-color: var(--bg-soft);
+
+    &::placeholder {
+      color: var(--text-subtle);
+    }
+
+    &:focus {
+      border-color: var(--border-subtle);
+      outline: none;
+    }
+  }
+
+  .consent {
+    cursor: pointer;
+    display: flex;
+    gap: var(--s-12);
+    align-items: flex-start;
+  }
+
+  .checkbox {
+    position: absolute;
+
+    overflow: hidden;
+
+    width: 1px;
+    height: 1px;
+
+    clip-path: inset(50%);
+  }
+
+  .checkboxBox {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    width: 2.4rem;
+    height: 2.4rem;
+    border: 1px solid var(--border-subtle);
+
+    background-color: var(--bg-soft);
+  }
+
+  .checkmark {
+    width: 2rem;
+    height: 2rem;
+    opacity: 0;
+  }
+
+  .checkbox:checked + .checkboxBox {
+    border-color: var(--border-soft);
+    background-color: var(--bg-agents-base);
+  }
+
+  .checkbox:checked + .checkboxBox .checkmark {
+    opacity: 1;
+  }
+
+  .submitButton {
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 4.6rem;
+    padding: 0 var(--s-16);
+    border: transparent;
+
+    font-family: GeistPixel, sans-serif;
+    font-size: 1.4rem;
+    color: var(--text-strong);
+    text-transform: uppercase;
+
+    background-color: var(--bg-white);
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+</style>

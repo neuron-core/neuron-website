@@ -1,0 +1,19 @@
+@use './typography' as *;
+
+:root {
+  font-family: Inter, sans-serif;
+
+  // default 10px font size on normal screen size
+  font-size: clamp(0.5rem, 0.24vw + 0.44rem, 0.625rem);
+  color: var(--text);
+  overflow-wrap: break-word;
+}
+
+body > * {
+  margin: 0 auto;
+  padding: 0 var(--s-24);
+}
+
+body {
+  background-color: var(--bg-primary);
+}

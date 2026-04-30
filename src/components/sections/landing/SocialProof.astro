@@ -1,0 +1,155 @@
+---
+import Typography from '~components/ui/Typography.astro';
+
+import devtimate from '~assets/socialProof/devtimate.svg';
+import tobee from '~assets/socialProof/tobee.svg';
+import spryker from '~assets/socialProof/spryker.svg';
+import microweber from '~assets/socialProof/microweber.svg';
+import caprit from '~assets/socialProof/caprit.svg';
+import mapOfAg from '~assets/socialProof/map-of-ag.svg';
+import inetis from '~assets/socialProof/inetis.svg';
+
+const logos = [
+  { src: devtimate.src, href: 'https://devtimate.com/' },
+  { src: tobee.src, href: 'https://tobee.co/' },
+  { src: spryker.src, href: 'https://spryker.com/' },
+  { src: microweber.src, href: 'https://microweber.com/' },
+  { src: caprit.src, href: 'https://www.capri.it/' },
+  { src: mapOfAg.src, href: 'https://mapof.ag/' },
+  { src: inetis.src, href: 'https://inetis.ch/' },
+];
+---
+
+<div class="wrapper">
+  <div class="content">
+    <div class="leftSide">
+      <Typography
+        styling="paragraphM"
+        tag="span"
+        font="pixel"
+        pixelWeight="square"
+      >
+        TRUSTED BY TEAMS AT
+      </Typography>
+    </div>
+
+    <div class="rightSide">
+      <div class="marqueeTrack">
+        {
+          logos.map((logo) => (
+            <a
+              href={logo.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="logoLink"
+            >
+              <img src={logo.src} alt="" />
+            </a>
+          ))
+        }
+        {
+          logos.map((logo) => (
+            <a
+              href={logo.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="logoLink"
+            >
+              <img src={logo.src} alt="" />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    position: relative;
+    top: -1px;
+
+    width: 100%;
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-32);
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    max-width: var(--max-width);
+    height: 18rem;
+    margin: 0 auto;
+
+    @include media-min('sm') {
+      flex-direction: row;
+      gap: 0;
+      justify-content: space-between;
+      height: 14rem;
+    }
+  }
+
+  .leftSide {
+    flex-shrink: 0;
+    padding-right: var(--s-20);
+    padding-left: var(--s-20);
+  }
+
+  .rightSide {
+    position: relative;
+
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    height: auto;
+
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 10%,
+      black 90%,
+      transparent 100%
+    );
+
+    @include media-min('sm') {
+      flex: 1;
+      max-width: 800px;
+      height: 100%;
+    }
+  }
+
+  .marqueeTrack {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    animation: marquee 30s linear infinite;
+  }
+
+  .logoLink {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+
+    padding-right: calc(var(--s-46) / 2);
+    padding-left: calc(var(--s-46) / 2);
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+</style>

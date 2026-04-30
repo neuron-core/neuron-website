@@ -1,0 +1,70 @@
+---
+import Typography from '~components/ui/Typography.astro';
+import Button from '~components/ui/Button.astro';
+---
+
+<div class="wrapper">
+  <div class="content">
+    <Typography tag="h2" styling="headingL" align="center">
+      Get expert support<br />from the framework creators
+    </Typography>
+
+    <Typography
+      tag="p"
+      styling="headingXs"
+      color="subtle"
+      align="center"
+      class="description"
+    >
+      Build your AI-powered applications with confidence. Our team of framework
+      creators provides dedicated consultancy and support to accelerate your
+      project success.
+    </Typography>
+
+    <div class="ctaWrapper">
+      <Button
+        href="https://cal.com/inspector/neuron-meeting"
+        text="Schedule a consultation"
+        size="large"
+      />
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    width: 100%;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-24);
+    align-items: center;
+
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-64) var(--s-20);
+
+    @include media-min('sm') {
+      padding: var(--s-100) var(--s-24);
+    }
+  }
+
+  .content :global(.description) {
+    max-width: 70%;
+    margin: 0;
+  }
+
+  .ctaWrapper {
+    margin-top: var(--s-16);
+
+    :global(a) {
+      color: var(--text-primary);
+      background-color: var(--bg-monitoring-base);
+    }
+  }
+</style>

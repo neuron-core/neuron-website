@@ -1,0 +1,68 @@
+---
+import MainLayout from '~components/layouts/MainLayout.astro';
+import Book from '~components/sections/landing/Book.astro';
+import BuildToScaleInProduction from '~components/sections/landing/BuildToScaleInProduction.astro';
+import CodeExample from '~components/sections/landing/CodeExample.astro';
+import CommunityProjects from '~components/sections/landing/CommunityProjects.astro';
+import DeveloperExperience from '~components/sections/landing/DeveloperExperience.astro';
+import ExpertSupport from '~components/sections/landing/ExpertSupport.astro';
+import Features from '~components/sections/landing/Features.astro';
+import Hero from '~components/sections/landing/Hero.astro';
+import Integrations from '~components/sections/landing/Integrations.astro';
+import Newsletter from '~components/sections/landing/Newsletter.astro';
+import SocialProof from '~components/sections/landing/SocialProof.astro';
+import VideoTutorials from '~components/sections/landing/VideoTutorials.astro';
+import { LANDING_SECTIONS } from '~consts/landingSections';
+---
+
+<MainLayout
+  title="Neuron AI - The Agentic Framework for PHP"
+  description="Build production-ready AI agents in PHP with the same language and tools your team already knows"
+>
+  <div class="landingContent">
+    <Hero />
+    <SocialProof />
+    <section id={LANDING_SECTIONS.FEATURES}>
+      <Features />
+    </section>
+    <BuildToScaleInProduction />
+    <DeveloperExperience />
+    <Integrations />
+    <section id={LANDING_SECTIONS.CODE}>
+      <CodeExample />
+    </section>
+    <section id={LANDING_SECTIONS.VIDEO_TUTORIALS}>
+      <VideoTutorials />
+    </section>
+    <section id={LANDING_SECTIONS.USE_CASES}>
+      <CommunityProjects />
+    </section>
+    <ExpertSupport />
+    <section id={LANDING_SECTIONS.BOOK}>
+      <Book />
+    </section>
+    <section id={LANDING_SECTIONS.NEWSLETTER}>
+      <Newsletter />
+    </section>
+  </div>
+</MainLayout>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .landingContent {
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 0;
+
+    & > :global(*) {
+      padding: 0 var(--s-24);
+    }
+
+    @media (width >= 1800px) {
+      border-right: 1px solid var(--border-soft);
+      border-left: 1px solid var(--border-soft);
+    }
+  }
+</style>

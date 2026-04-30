@@ -1,0 +1,240 @@
+---
+import Typography from '~components/ui/Typography.astro';
+import Button from '~components/ui/Button.astro';
+
+const projects = [
+  {
+    badge: 'INTRODUCING MAESTRO',
+    title: 'CLI Agent',
+    description:
+      'Maestro is a production-ready CLI framework that brings modular, tool-calling AI agents directly to the PHP ecosystem. Build, share, and control custom agents - from coding assistants to deployment experts with native human-in-the-loop approvals and any LLM provider.',
+    link: 'https://inspector.dev/maestro-a-customizable-cli-agent-built-in-php/',
+  },
+  {
+    title: 'Data Analyst Agents',
+    description:
+      'Build intelligent agents that query SQL databases, analyze trends, and generate insights—all using natural language commands from your business users.',
+    link: 'https://inspector.dev/mysql-ai-toolkit-bringing-intelligence-to-your-database-layer-in-php/',
+  },
+  {
+    title: 'YouTube AI Agent',
+    description:
+      'AI Agents summarizing YouTube videos. Students, teachers, and researchers often need to extract key information from lengthy educational content. The YouTube Agent could help them.',
+    link: 'https://inspector.dev/php-ai-agent-summarizing-youtube-videos/',
+  },
+  {
+    title: 'SQL Query Optimizer',
+    description:
+      "A Laravel development tool that leverages the intelligence of AI to analyze and optimize your application's SQL queries.",
+    link: 'https://neuronhub.dev/package/20',
+  },
+  {
+    title: 'RAG Systems',
+    description:
+      'Implement Retrieval-Augmented Generation with Ollama or cloud providers to create AI systems that combine LLM reasoning with your proprietary knowledge.',
+    link: 'https://inspector.dev/how-to-create-a-rag-agent-with-neuron-adk-for-php/',
+  },
+  {
+    title: 'Laravel Travel Agent',
+    description:
+      'Multi-agent workflow with orchestration, state management, and coordination between different specialized agent to create detailed and personalized travel experiences.',
+    link: 'https://inspector.dev/building-multi-agent-systems-in-laravel-a-practical-demo/',
+  },
+  {
+    title: 'Deep Research Agent',
+    description:
+      'Neuron Open Deep Research provides a structured approach to generating comprehensive research reports on any topic using large language models.',
+    link: 'https://github.com/neuron-core/deep-research-agent',
+  },
+];
+---
+
+<div class="wrapper">
+  <div class="content">
+    <Typography tag="h2" styling="headingL" align="center">
+      Get inspired by<br />community projects
+    </Typography>
+
+    <div class="cards">
+      {
+        projects.map((item, index) => {
+          const isFeatured = index === 0;
+          const Tag = isFeatured ? 'div' : 'a';
+          const linkProps = isFeatured
+            ? {}
+            : {
+                href: item.link,
+                target: '_blank',
+                rel: 'noopener noreferrer',
+              };
+
+          return (
+            <Tag class:list={['card', { featured: isFeatured }]} {...linkProps}>
+              <div class="cardHeader">
+                {item.badge && (
+                  <div class="badge">
+                    <Typography
+                      tag="span"
+                      styling="bodyM"
+                      font="pixel"
+                      color="subtle"
+                    >
+                      {item.badge}
+                    </Typography>
+                  </div>
+                )}
+
+                <div class="titleRow">
+                  <Typography
+                    tag="span"
+                    styling="headingXs"
+                    font="pixel"
+                    color="subtle"
+                    class="index"
+                  >
+                    {String(index + 1).padStart(2, '0')}
+                  </Typography>
+                  <Typography tag="h3" styling="headingXs">
+                    / {item.title}
+                  </Typography>
+                </div>
+              </div>
+
+              <Typography
+                tag="p"
+                class="description"
+                color="soft"
+                styling="paragraphL"
+              >
+                {item.description}
+              </Typography>
+
+              {isFeatured && item.link && (
+                <div class="buttonWrapper">
+                  <Button href={item.link} text="Learn more" size="medium" />
+                </div>
+              )}
+            </Tag>
+          );
+        })
+      }
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    width: 100%;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-64);
+    align-items: center;
+
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-64) 0;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    border: 1px solid var(--border-soft);
+
+    @include media-min('sm') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-16);
+
+    padding: var(--s-24) var(--s-20);
+    border-bottom: 1px solid var(--border-soft);
+
+    color: var(--text-primary);
+    text-decoration: none;
+
+    transition: background-color 0.25s ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background-color: var(--bg-weak);
+    }
+
+    @include media-min('sm') {
+      padding: var(--s-24) var(--s-24);
+      border-right: 1px solid var(--border-soft);
+
+      &:nth-child(2),
+      &:nth-child(3),
+      &:nth-child(5),
+      &:nth-child(7) {
+        border-right: none;
+      }
+    }
+  }
+
+  .card.featured {
+    background-color: var(--bg-weak);
+
+    :global(a) {
+      background: var(--bg-agents-base);
+    }
+
+    &:hover {
+      background-color: var(--bg-soft);
+    }
+
+    @include media-min('sm') {
+      grid-row: span 2;
+    }
+  }
+
+  .buttonWrapper {
+    align-self: flex-start;
+    margin-top: auto;
+  }
+
+  .cardHeader {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-12);
+  }
+
+  .badge {
+    display: inline-flex;
+    align-self: flex-start;
+
+    margin-bottom: var(--s-12);
+    padding: var(--s-6) var(--s-12);
+    border: 1px solid var(--border-soft);
+
+    background-color: var(--bg-soft);
+  }
+
+  .titleRow {
+    display: flex;
+    gap: var(--s-10);
+    align-items: baseline;
+  }
+
+  .titleRow :global(.index) {
+    flex-shrink: 0;
+  }
+
+  .description {
+    margin: 0;
+  }
+</style>

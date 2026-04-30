@@ -1,0 +1,141 @@
+---
+import { Image } from 'astro:assets';
+import Typography from '~components/ui/Typography.astro';
+import Button from '~components/ui/Button.astro';
+import bookCover from '~assets/images/book.png';
+---
+
+<div class="wrapper">
+  <div class="content">
+    <div class="cover">
+      <Image src={bookCover} alt="Start with AI Agents in PHP - book cover" />
+    </div>
+
+    <div class="info">
+      <div class="textBlock">
+        <Typography tag="span" styling="paragraphS" font="pixel" color="subtle">
+          THE ULTIMATE GUIDE TO BUILDING AI-POWERED AGENTS WITH PHP
+        </Typography>
+
+        <Typography tag="h2" styling="headingL">
+          Start with AI Agents in PHP
+        </Typography>
+
+        <Typography
+          tag="p"
+          styling="paragraphL"
+          color="soft"
+          class="description"
+        >
+          Position yourself in the AI Agent era with this comprehensive resource
+          that shows exactly how to get there using PHP. Learn from practical
+          examples and real-world use cases.
+        </Typography>
+      </div>
+
+      <div class="purchaseBlock">
+        <Typography tag="span" styling="headingXl" font="pixel">
+          $8.90
+        </Typography>
+
+        <Typography tag="p" styling="paragraphL" color="soft">
+          Available on Amazon and Google Play
+        </Typography>
+
+        <div class="buttons">
+          <Button
+            href="https://www.amazon.com/dp/B0F1YX8KJB"
+            text="Buy on Amazon"
+            size="large"
+            variant="primary"
+          />
+          <Button
+            href="https://play.google.com/store/books/details?pcampaignid=books_read_action&id=agJPEQAAQBAJ&pli=1"
+            text="Buy on Google Play"
+            size="large"
+            variant="outline"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    width: 100%;
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-32);
+
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-64) 0;
+
+    @include media-min('md') {
+      grid-template-columns: 3fr 5fr;
+      gap: var(--s-64);
+      padding: var(--s-100) 0;
+    }
+  }
+
+  .cover {
+    display: flex;
+    justify-content: center;
+
+    padding: var(--s-32);
+    border: 1px solid var(--border-soft);
+
+    background-color: var(--bg-weak);
+
+    img {
+      width: 100%;
+      max-width: 40rem;
+      height: auto;
+      border: 1px solid var(--border-soft);
+    }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-46);
+    justify-content: space-between;
+  }
+
+  .textBlock {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .textBlock :global(h2) {
+    margin-top: var(--s-32);
+  }
+
+  .textBlock :global(.description) {
+    max-width: 60rem;
+    margin-top: var(--s-24);
+  }
+
+  .purchaseBlock {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .purchaseBlock :global(p) {
+    margin-top: var(--s-24);
+  }
+
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-12);
+    margin-top: var(--s-46);
+  }
+</style>

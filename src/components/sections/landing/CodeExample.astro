@@ -1,0 +1,163 @@
+---
+import { Code } from 'astro:components';
+import Typography from '~components/ui/Typography.astro';
+
+const code = `<?php
+
+class CustomerServiceAgent extends Agent
+{
+    protected function provider(): AIProviderInterface
+    {
+        // you can also use OpenAI, Gemini, XAI, AWS Bedrock, Azure, and others
+        return new Anthropic(
+            'ANTHROPIC_API_KEY',
+            'claude-4-5-sonnet'
+        );
+    }
+
+    public function instructions(): string
+    {
+        return (string) new SystemPrompt(
+            background: [
+                'You are a helpful customer service assistant. ' .
+                'Provide clear, friendly, and accurate responses.'
+            ]
+        );
+    }
+
+    public function tools(): array
+    {
+        return [
+            CalculatorToolkit::make(),
+        ];
+    }
+}
+
+// Use the agent in your application
+$response = CustomerServiceAgent::make()->chat(
+    new UserMessage('Give me the daily average of sales in the last 30 days?')
+)->getMessage();
+
+echo $response->getContent();
+`;
+---
+
+<div class="wrapper">
+  <div class="content">
+    <div class="codeColumn">
+      <div class="codeBlock">
+        <Code code={code} lang="php" theme="github-dark-default" />
+      </div>
+    </div>
+
+    <div class="textColumn">
+      <Typography tag="h2" styling="headingM">See How Simple It Is</Typography>
+      <Typography
+        tag="p"
+        class="description"
+        color="subtle"
+        styling="paragraphL"
+      >
+        Create a functional AI agent with clean, understandable PHP code. No
+        complex setup, no boilerplate—just elegant, production-ready
+        implementation.
+      </Typography>
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    width: 100%;
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-32);
+    align-items: start;
+
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-64) 0;
+
+    @include media-min('md') {
+      grid-template-columns: 2fr 1fr;
+      gap: var(--s-64);
+    }
+  }
+
+  .codeColumn {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .codeBlock {
+    overflow: hidden;
+    border: 1px solid var(--border-soft);
+    background-color: var(--bg-weak);
+
+    @include media-min('sm') {
+      padding: var(--s-16);
+    }
+  }
+
+  .codeBlock :global(pre) {
+    counter-reset: line;
+
+    overflow-x: auto;
+
+    margin: 0;
+    padding: 0;
+
+    font-size: 1.3rem;
+    line-height: 1.6;
+
+    background-color: transparent !important;
+
+    @include media-min('sm') {
+      font-size: 1.4rem;
+    }
+  }
+
+  .codeBlock :global(pre code) {
+    display: block;
+    padding-left: var(--s-46);
+  }
+
+  .codeBlock :global(pre code .line) {
+    counter-increment: line;
+  }
+
+  .codeBlock :global(pre code .line::before) {
+    content: counter(line);
+
+    display: inline-block;
+
+    width: var(--s-24);
+    margin-left: calc(var(--s-46) * -1);
+    padding-right: var(--s-32);
+
+    color: var(--text-disabled);
+    text-align: right;
+    vertical-align: top;
+  }
+
+  .textColumn {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-16);
+
+    @include media-min('md') {
+      position: sticky;
+      top: var(--s-64);
+    }
+  }
+
+  .textColumn :global(.description) {
+    margin: 0;
+  }
+</style>

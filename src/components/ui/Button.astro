@@ -1,0 +1,63 @@
+---
+interface Props {
+  size?: 'large' | 'medium';
+  variant?: 'primary' | 'outline';
+  href?: string;
+  type?: HTMLButtonElement['type'];
+  text: string;
+}
+
+const {
+  href,
+  size = 'large',
+  variant = 'primary',
+  type = 'button',
+  text,
+} = Astro.props as Props;
+const Element = href ? 'a' : 'button';
+---
+
+<Element
+  href={href}
+  target={'_blank'}
+  class:list={[size, variant, 'base']}
+  type={type}
+>
+  {text}
+</Element>
+
+<style>
+  .base {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: GeistPixel, sans-serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .primary {
+    border: transparent;
+    color: var(--text-strong);
+    background-color: var(--bg-white);
+  }
+
+  .outline {
+    border: 1px solid var(--border-soft);
+    color: var(--text-primary);
+    background-color: transparent;
+  }
+
+  .large {
+    height: 4.6rem;
+    padding: 0 var(--s-16);
+  }
+
+  .medium {
+    height: 4rem;
+    padding: 0 var(--s-12);
+  }
+</style>

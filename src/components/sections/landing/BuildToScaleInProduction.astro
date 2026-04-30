@@ -1,0 +1,164 @@
+---
+import Typography from '~components/ui/Typography.astro';
+import multiProviderImg from '~assets/illustrations/multi-provider.svg';
+import toolkitsImg from '~assets/illustrations/toolkits.svg';
+import architectureImg from '~assets/illustrations/architecture.svg';
+import dataIntegrationImg from '~assets/illustrations/data-integration.svg';
+import ragImg from '~assets/illustrations/rag.svg';
+import observabilityImg from '~assets/illustrations/observability.svg';
+
+const data = [
+  {
+    title: 'Multi-Provider Support',
+    description:
+      'Work with OpenAI, Anthropic, Gemini, Pinecone, Elasticsearch, and more. Switch between LLM providers with a single line of code without impacting your agent implementation.',
+    illustration: multiProviderImg.src,
+    scaleUp: true,
+  },
+  {
+    title: 'Modular Agent Toolkits',
+    description:
+      'Build agents with specialized capabilities by mixing and matching toolkits. Add database readers, API integrators, or custom tools to create AI solutions tailored to your use case.',
+    illustration: toolkitsImg.src,
+  },
+  {
+    title: 'Flexible Architecture',
+    description:
+      'Build agents with specialized capabilities by mixing and matching toolkits. Add database readers, API integrators, or custom tools to create AI solutions tailored to your use case.',
+    illustration: architectureImg.src,
+  },
+  {
+    title: 'Data Integration',
+    description:
+      'Load data from CSV, JSON, SQL databases, and more to create unified data models for your agents. Work seamlessly with your existing data infrastructure.',
+    illustration: dataIntegrationImg.src,
+  },
+  {
+    title: 'RAG Capabilities',
+    description:
+      'Implement powerful Retrieval-Augmented Generation in just a few lines. Connect agents to your knowledge bases and external data sources for enhanced accuracy and relevance.',
+    illustration: ragImg.src,
+  },
+  {
+    title: 'Built-in Observability',
+    description:
+      'Monitor agent execution with Inspector.dev integration. Move from prototype to production with confidence—enable monitoring with just one line of code.',
+    illustration: observabilityImg.src,
+  },
+];
+---
+
+<div class="wrapper">
+  <div class="content">
+    <Typography tag="h2" styling="headingL">
+      Built To Scale In Production
+    </Typography>
+
+    <div class="items">
+      {
+        data.map((item) => {
+          return (
+            <div class="item">
+              <div class:list={['illustration', { scaleUp: item.scaleUp }]}>
+                <img src={item.illustration} alt={item.title} />
+              </div>
+
+              <div class="data">
+                <Typography tag="h3" styling="headingXs">
+                  {item.title}
+                </Typography>
+                <Typography color="subtle" tag="p" styling="paragraphL">
+                  {item.description}
+                </Typography>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    width: 100%;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-64);
+    align-items: center;
+
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-64) 0;
+  }
+
+  .items {
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 1px solid var(--border-soft);
+
+    @include media-min('sm') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .item {
+    width: 100%;
+    border-bottom: 1px solid var(--border-soft);
+
+    @include media-min('sm') {
+      &:nth-of-type(odd) {
+        border-right: 1px solid var(--border-soft);
+      }
+    }
+
+    .illustration {
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      height: 250px;
+      border-bottom: 1px solid var(--border-soft);
+
+      @include media-min('sm') {
+        height: 300px;
+      }
+
+      @include media-min('lg') {
+        height: 400px;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      &.scaleUp img {
+        transform: scale(1.8);
+      }
+    }
+
+    .data {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-12);
+      padding: var(--s-20);
+
+      @include media-min('sm') {
+        padding: var(--s-24);
+      }
+
+      @include media-min('lg') {
+        padding: var(--s-32);
+      }
+    }
+  }
+</style>

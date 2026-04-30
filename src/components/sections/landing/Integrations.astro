@@ -1,0 +1,139 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import Typography from '~components/ui/Typography.astro';
+
+const iconsDir = path.resolve('src/assets/icons');
+
+const laravelLogo = fs.readFileSync(
+  path.join(iconsDir, 'laravel-logo.svg'),
+  'utf-8',
+);
+const symfonyLogo = fs.readFileSync(
+  path.join(iconsDir, 'symphony-logo.svg'),
+  'utf-8',
+);
+const wordpressLogo = fs.readFileSync(
+  path.join(iconsDir, 'wordpress-logo.svg'),
+  'utf-8',
+);
+
+const integrations = [
+  { name: 'Laravel', logo: laravelLogo },
+  { name: 'Symfony', logo: symfonyLogo },
+  { name: 'WordPress', logo: wordpressLogo },
+];
+---
+
+<div class="wrapper">
+  <div class="content">
+    <Typography tag="h2" styling="headingM" class="title">
+      Perfectly Integrated<br />With Your Favorite Frameworks
+    </Typography>
+
+    <div class="logos">
+      {
+        integrations.map((item) => (
+          <div class="logoBox" aria-label={item.name}>
+            <div class="logo" set:html={item.logo} />
+          </div>
+        ))
+      }
+
+      <div class="logoBox textBox">
+        <Typography font="pixel" tag="span" styling="paragraphL" color="subtle">
+          Custom MVC
+        </Typography>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    width: 100%;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-32);
+    align-items: flex-start;
+    justify-content: space-between;
+
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-64) 0;
+
+    @include media-min('md') {
+      flex-direction: row;
+      gap: var(--s-40);
+      align-items: center;
+    }
+  }
+
+  .content :global(.title) {
+    flex: 1;
+  }
+
+  .logos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--s-12);
+    width: 100%;
+
+    @include media-min('sm') {
+      grid-template-columns: repeat(4, auto);
+      gap: var(--s-16);
+      width: auto;
+    }
+  }
+
+  .logoBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    aspect-ratio: 1;
+    width: 100%;
+    padding: var(--s-20);
+    border: 1px solid var(--border-soft);
+
+    background-color: var(--bg-weak);
+
+    @include media-min('sm') {
+      aspect-ratio: unset;
+      width: 9.6rem;
+      height: 9.6rem;
+    }
+  }
+
+  .textBox {
+    aspect-ratio: unset;
+    padding: var(--s-16) var(--s-24);
+
+    @include media-min('sm') {
+      width: auto;
+      min-width: 12rem;
+    }
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+  }
+
+  .logo :global(svg) {
+    width: auto;
+    max-width: 100%;
+    height: 100%;
+    max-height: var(--s-46);
+  }
+</style>

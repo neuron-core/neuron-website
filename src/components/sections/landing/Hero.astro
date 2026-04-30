@@ -1,0 +1,94 @@
+---
+import Typography from '~components/ui/Typography.astro';
+import Button from '~components/ui/Button.astro';
+import { Image } from 'astro:assets';
+import heroGrid from '~assets/hero-grid.svg';
+---
+
+<div class="heroWrapper">
+  <Image src={heroGrid} alt="" class="heroGrid" />
+
+  <div class="heroContent">
+    <div class="leftSide">
+      <Typography tag="h1" class="title">
+        The first agentic framework <br />for the PHP ecosystem
+      </Typography>
+
+      <Typography class="subtitle" color="subtle" tag="p" styling="paragraphL">
+        Neuron AI gives you a production-ready, type-safe framework to create
+        autonomous agents, complex workflows, and RAG systems directly in your
+        existing PHP stack.
+      </Typography>
+
+      <div class="buttons">
+        <Button href="https://docs.neuron-ai.dev/" text="read docs" />
+        <Button
+          href="https://github.com/neuron-core/neuron-ai"
+          variant="outline"
+          text="join github +1.8k stars"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<style is:global lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .heroWrapper {
+    position: relative;
+
+    overflow: hidden;
+
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+
+  .heroGrid {
+    pointer-events: none;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    display: none;
+
+    width: auto;
+    height: 100%;
+
+    @include media-min('xl') {
+      display: block;
+    }
+  }
+
+  .heroContent {
+    position: relative;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 200px 0;
+  }
+
+  .title {
+    @include media-min('md') {
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+
+  .subtitle {
+    max-width: 600px;
+    padding-top: var(--s-24);
+    padding-bottom: var(--s-40);
+  }
+
+  .buttons {
+    display: flex;
+    gap: var(--s-12);
+  }
+
+  .leftSide {
+    display: flex;
+    flex-direction: column;
+  }
+</style>

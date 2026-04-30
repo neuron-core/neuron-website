@@ -1,0 +1,172 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import Typography from '~components/ui/Typography.astro';
+import Button from '~components/ui/Button.astro';
+
+const iconsDir = path.resolve('src/assets/icons');
+const playIcon = fs.readFileSync(path.join(iconsDir, 'play-icon.svg'), 'utf-8');
+
+const videoId = 'oSA1bP_j41w';
+const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+---
+
+<div class="wrapper">
+  <div class="content">
+    <div class="textColumn">
+      <Typography tag="h2" styling="headingL">
+        Ready to build<br />AI Agents in PHP?
+      </Typography>
+      <Typography
+        tag="p"
+        class="description"
+        color="subtle"
+        styling="paragraphL"
+      >
+        Learn how to build powerful AI agents in PHP with our comprehensive
+        video tutorials. Watch step-by-step guides that cover everything from
+        installation to advanced features, and start building production-ready
+        AI agents in minutes.
+      </Typography>
+
+      <div class="buttonWrapper">
+        <Button
+          href={videoUrl}
+          text="Watch Video Tutorials"
+          variant="primary"
+        />
+      </div>
+    </div>
+
+    <a
+      class="videoLink"
+      href={videoUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Watch video tutorial on YouTube"
+    >
+      <img
+        src={thumbnailUrl}
+        alt="AI Agent tutorial video"
+        loading="lazy"
+        class="thumbnail"
+      />
+      <div class="playIcon" aria-hidden="true" set:html={playIcon} />
+    </a>
+  </div>
+</div>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    width: 100%;
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-32);
+    align-items: center;
+
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-64) 0;
+
+    @include media-min('md') {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-64);
+    }
+  }
+
+  .textColumn {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-24);
+    align-items: flex-start;
+  }
+
+  .textColumn :global(.description) {
+    margin: 0;
+  }
+
+  .buttonWrapper {
+    margin-top: var(--s-12);
+  }
+
+  .videoLink {
+    position: relative;
+
+    overflow: hidden;
+    display: block;
+
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    padding: var(--s-20);
+    border: 1px solid var(--border-soft);
+
+    background-color: var(--bg-weak);
+
+    transition: border-color 0.3s ease;
+  }
+
+  .thumbnail {
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--border-soft);
+
+    object-fit: cover;
+
+    transition: transform 0.4s ease;
+  }
+
+  .videoLink:hover .thumbnail {
+    transform: scale(1.01);
+  }
+
+  .playIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: var(--s-64);
+    height: var(--s-64);
+    border-radius: var(--r-max);
+
+    color: var(--text-strong);
+
+    background-color: var(--bg-white);
+
+    transition: transform 0.3s ease;
+
+    @include media-min('sm') {
+      width: var(--s-100);
+      height: var(--s-100);
+    }
+  }
+
+  .videoLink:hover .playIcon {
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+  .playIcon :global(svg) {
+    width: var(--s-24);
+    height: var(--s-24);
+
+    @include media-min('sm') {
+      width: var(--s-32);
+      height: var(--s-32);
+    }
+  }
+
+  .playIcon :global(svg path) {
+    fill: currentcolor;
+  }
+</style>

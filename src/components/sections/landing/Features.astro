@@ -1,0 +1,229 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import Typography from '~components/ui/Typography.astro';
+import Button from '~components/ui/Button.astro';
+
+// Read SVGs as raw strings for inline rendering (allows fill="currentColor" to work)
+const iconsDir = path.resolve('src/assets/icons');
+const aiAgentsIcon = fs.readFileSync(
+  path.join(iconsDir, 'ai-agent.svg'),
+  'utf-8',
+);
+const workflowsIcon = fs.readFileSync(
+  path.join(iconsDir, 'workflows.svg'),
+  'utf-8',
+);
+const ragIcon = fs.readFileSync(path.join(iconsDir, 'rag.svg'), 'utf-8');
+const monitoringIcon = fs.readFileSync(
+  path.join(iconsDir, 'monitoring.svg'),
+  'utf-8',
+);
+
+const cards = [
+  {
+    title: 'AI Agents',
+    description:
+      'Build production-ready agents as native PHP classes. Swap LLMs like OpenAI, Claude, or Llama with a single line of code - All with 100% PHPStan coverage and full IDE support.',
+    color: 'var(--bg-agents-base)',
+    link: 'https://docs.neuron-ai.dev/agent/agent',
+    icon: aiAgentsIcon,
+  },
+  {
+    title: 'Workflows',
+    description:
+      'Design complex, event-driven flows with multiple agents. Manage state, handle loops, and implement "human-in-the-loop" logic directly in your PHP app',
+    color: 'var(--bg-workflows-base)',
+    link: 'https://docs.neuron-ai.dev/workflow/getting-started',
+    icon: workflowsIcon,
+  },
+  {
+    title: 'RAG',
+    description:
+      'A complete pipeline for your data. Connect PDFs, SQL, or docs to vector stores like Pinecone or Elasticsearch to give your agents real-world context.',
+    color: 'var(--bg-vector-base)',
+    link: 'https://docs.neuron-ai.dev/rag/rag',
+    icon: ragIcon,
+  },
+  {
+    title: 'Monitoring',
+    description:
+      'No more "black box" AI. Powered by Inspector.dev, you get instant visibility into every agent\'s thought process, tool call, and RAG retrieval in production.',
+    color: 'var(--bg-monitoring-base)',
+    link: 'https://inspector.dev/',
+    icon: monitoringIcon,
+  },
+];
+---
+
+<div class="wrapper">
+  <div class="content">
+    <Typography tag="h2" styling="headingL">All-in-one framework</Typography>
+
+    <div class="cards">
+      {
+        cards.map((item) => {
+          return (
+            <div class="card" style={`--card-color: ${item.color};`}>
+              <div
+                class="icon"
+                style={`color: ${item.color};`}
+                set:html={item.icon}
+              />
+
+              <div class="cardBody">
+                <Typography tag="h3" styling="headingS">
+                  {item.title}
+                </Typography>
+                <Typography
+                  tag="p"
+                  class="description"
+                  color="subtle"
+                  styling="paragraphL"
+                >
+                  {item.description}
+                </Typography>
+              </div>
+
+              <div class="buttonWrapper">
+                <Button href={item.link} text="Learn more" />
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    width: 100%;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-64);
+    align-items: center;
+
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-64) 0;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-12);
+    width: 100%;
+
+    @include media-min('sm') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include media-min('lg') {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .card {
+    position: relative;
+
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    height: 300px;
+    padding: var(--s-20);
+    border: 1px solid var(--border-soft);
+
+    background-color: var(--bg-weak);
+
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease;
+
+    @include media-min('sm') {
+      height: 340px;
+      padding: var(--s-24);
+    }
+
+    @include media-min('lg') {
+      height: 420px;
+    }
+  }
+
+  .card:hover {
+    border-color: var(--card-color);
+    background-color: var(--card-color);
+  }
+
+  .icon {
+    width: 4.8rem;
+    transition: color 0.3s ease;
+
+    @include media-min('sm') {
+      width: 5.6rem;
+    }
+  }
+
+  .card:hover .icon {
+    color: var(--text-strong) !important;
+  }
+
+  .cardBody {
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+  }
+
+  .card:hover .cardBody {
+    transform: translateY(calc((var(--s-46) + var(--s-20)) * -1));
+  }
+
+  .card:hover .cardBody :global(h3) {
+    color: var(--text-strong) !important;
+  }
+
+  .card:hover .cardBody :global(.description) {
+    color: var(--text-heavy) !important;
+  }
+
+  .cardBody :global(.description) {
+    margin-top: var(--s-16);
+    margin-bottom: 0;
+    transition: color 0.3s ease;
+
+    @include media-min('sm') {
+      margin-top: var(--s-20);
+    }
+  }
+
+  .buttonWrapper {
+    position: absolute;
+    bottom: var(--s-20);
+    left: var(--s-20);
+    transform: translateY(var(--s-64));
+
+    opacity: 0;
+
+    transition:
+      opacity 0.35s ease,
+      transform 0.35s ease;
+
+    @include media-min('sm') {
+      bottom: var(--s-24);
+      left: var(--s-24);
+    }
+  }
+
+  .card:hover .buttonWrapper {
+    transform: translateY(0);
+    opacity: 1;
+  }
+</style>

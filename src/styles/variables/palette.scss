@@ -1,0 +1,39 @@
+@use 'primitives/colors' as *;
+
+:root {
+  // Background
+  --bg-primary: #{$gray-950};
+  --bg-weak: #{$gray-900};
+  --bg-soft: #{$gray-800};
+  --bg-sub: #{$gray-600};
+  --bg-white: #{$white};
+
+  // Background — Vector (Pink)
+  --bg-vector-base: #{$pink-500};
+  --bg-vector-light: #{$pink-alpha-24};
+
+  // Background — Workflows (Blue)
+  --bg-workflows-base: #{$blue-500};
+  --bg-workflows-light: #{$blue-alpha-24};
+
+  // Background — Agents (Green)
+  --bg-agents-base: #{$green-500};
+  --bg-agents-light: #{$green-alpha-24};
+
+  // Background — Monitoring (Orange)
+  --bg-monitoring-base: #{$orange-500};
+  --bg-monitoring-light: #{$orange-alpha-24};
+
+  // Text
+  --text-primary: #{$gray-50};
+  --text-weak: #{$gray-200};
+  --text-subtle: #{$gray-400};
+  --text-soft: #{$gray-500};
+  --text-disabled: #{$gray-600};
+  --text-heavy: #{$gray-800};
+  --text-strong: #{$gray-950};
+
+  // Border
+  --border-subtle: #{$gray-600};
+  --border-soft: #{$gray-700};
+}
