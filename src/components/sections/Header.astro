@@ -98,21 +98,19 @@ const pageLinks = [
         }
       </div>
 
-      {currentPage === 'home' && (
-        <div class="links">
-          {
-            links.map((item) => {
-              return (
-                <a href={item.href}>
-                  <Typography styling="paragraphM" tag="span">
-                    {item.text}
-                  </Typography>
-                </a>
-              );
-            })
-          }
-        </div>
-      )}
+      <div class="links">
+        {
+          links.map((item) => {
+            return (
+              <a href={item.href}>
+                <Typography styling="paragraphM" tag="span">
+                  {item.text}
+                </Typography>
+              </a>
+            );
+          })
+        }
+      </div>
 
       <div class="buttons">
         <Button href="https://github.com/neuron-core/neuron-ai" text="github" variant="outline" />
@@ -124,7 +122,11 @@ const pageLinks = [
 
 <style>
   header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-index-high);
     width: 100%;
+    background: var(--bg-primary);
     border-bottom: 1px solid var(--border-soft);
   }
 
