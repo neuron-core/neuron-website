@@ -4,63 +4,50 @@ export interface Partner {
   location: string;
   description: string;
   accent: string;
-  monogram: string;
+  logo: ImageMetadata;
 }
+
+import inspectorLogo from '~assets/partners/inspector.svg';
+import tobeeLogo from '~assets/partners/tobee.svg';
+import regoloLogo from '~assets/partners/regolo.svg';
+import threeDZeroLogo from '~assets/partners/3d0.svg';
 
 export const PARTNER_DATA: Partner[] = [
   {
-    name: 'Inspector.dev',
+    name: 'Inspector',
     region: 'EU',
-    location: 'Padua, Italy',
+    location: 'Italy',
     description:
       'Observability backbone for PHP. Ships the Monitoring pillar and runs the agentic playbook end-to-end on customer engagements.',
     accent: 'monitoring',
-    monogram: 'IN',
+    logo: inspectorLogo,
   },
   {
-    name: 'Spryker Labs',
+    name: 'To Bee',
     region: 'EU',
-    location: 'Berlin, Germany',
+    location: 'Italy',
     description:
-      'Composable commerce specialists. Embed Neuron Workflows into checkout, search and merchandising for enterprise marketplaces.',
+      'Software house and system integrator. Delivers Neuron AI inside CRMs, E-Commerce, and bespoke PHP platforms across Italy.',
+    accent: 'vector',
+    logo: tobeeLogo,
+  },
+  {
+    name: 'Regolo.ai',
+    region: 'EU',
+    location: 'EU Data Center',
+    description:
+      'AI models inference with Zero Data Retention in EU Data Center, powered by 100% green carbon-free energy.',
+    accent: 'agents',
+    logo: regoloLogo,
+  },
+  {
+    name: '3D0',
+    region: 'EU',
+    location: 'Italy',
+    description:
+      'Software house specialized in Laravel and Angular development.',
     accent: 'workflows',
-    monogram: 'SP',
-  },
-  {
-    name: 'Caprit Studio',
-    region: 'EU',
-    location: 'Lisbon, Portugal',
-    description:
-      'Boutique PHP consultancy. Designs RAG pipelines over legacy SQL and document stores for regulated industries.',
-    accent: 'vector',
-    monogram: 'CA',
-  },
-  {
-    name: 'Devtimate',
-    region: 'AMER',
-    location: 'Austin, USA',
-    description:
-      'Senior team of Laravel + Symfony engineers. Production rollouts of multi-agent customer-support and ops automation.',
-    accent: 'agents',
-    monogram: 'DE',
-  },
-  {
-    name: 'Map of Ag',
-    region: 'AMER',
-    location: 'Toronto, Canada',
-    description:
-      'Vertical AI for agritech. Connects field telemetry to Neuron agents for advisory, forecasting and compliance reporting.',
-    accent: 'agents',
-    monogram: 'MA',
-  },
-  {
-    name: 'Tobee Systems',
-    region: 'APAC',
-    location: 'Singapore',
-    description:
-      'Regional integrator. Delivers Neuron AI inside WordPress, Magento and bespoke PHP platforms across Southeast Asia.',
-    accent: 'vector',
-    monogram: 'TO',
+    logo: threeDZeroLogo,
   },
 ];
 

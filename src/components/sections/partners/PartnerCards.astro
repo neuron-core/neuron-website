@@ -13,7 +13,7 @@ const tk = ACCENT_TOKEN[partner.accent] || ACCENT_TOKEN.agents;
 
 <div class="card" style={`--accent-base: ${tk.base}; --accent-light: ${tk.light};`}>
   <div class="logo" style={`--accent-base: ${tk.base}; --accent-light: ${tk.light};`}>
-    {partner.monogram}
+    <img src={partner.logo.src} alt={`${partner.name} logo`} />
   </div>
   <div class="info">
     <Typography tag="h3" styling="headingS" class="name">
@@ -63,12 +63,14 @@ const tk = ACCENT_TOKEN[partner.accent] || ACCENT_TOKEN.agents;
     justify-content: center;
     background: var(--accent-light);
     border: 1px solid var(--accent-base);
-    color: var(--accent-base);
-    font-family: GeistPixel, sans-serif;
-    font-weight: 700;
-    font-size: 2.4rem;
-    letter-spacing: 0.02em;
     flex-shrink: 0;
+    padding: var(--s-12);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
   }
 
   .info {
