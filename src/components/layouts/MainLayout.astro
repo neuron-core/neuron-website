@@ -6,6 +6,7 @@ import '~styles/styles.scss';
 interface Props {
   title: string;
   description: string;
+  currentPage?: 'home' | 'partners';
   // Optional SEO overrides
   canonical?: string;
   ogImage?: string;
@@ -20,6 +21,7 @@ interface Props {
 const {
   title,
   description,
+  currentPage = 'home',
   canonical,
   ogType = 'website',
   ogUrl,
@@ -79,7 +81,7 @@ const ogUrlFinal = ogUrl || Astro.url.href;
   </head>
 
   <body>
-    <Header />
+    <Header currentPage={currentPage} />
 
     <slot />
 

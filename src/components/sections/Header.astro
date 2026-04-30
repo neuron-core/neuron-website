@@ -3,28 +3,40 @@ import Typography from '~components/ui/Typography.astro';
 import Button from '~components/ui/Button.astro';
 import { LANDING_SECTIONS } from '~consts/landingSections';
 
+interface Props {
+  currentPage?: 'home' | 'partners';
+}
+
+const { currentPage = 'home' } = Astro.props as Props;
+
 const links = [
   {
     text: 'Features',
-    href: LANDING_SECTIONS.FEATURES,
+    href: `/#${LANDING_SECTIONS.FEATURES}`,
   },
   {
     text: 'Code',
-    href: LANDING_SECTIONS.CODE,
+    href: `/#${LANDING_SECTIONS.CODE}`,
   },
   {
     text: 'Use Cases',
-    href: LANDING_SECTIONS.USE_CASES,
+    href: `/#${LANDING_SECTIONS.USE_CASES}`,
   },
   {
     text: 'Book',
-    href: LANDING_SECTIONS.BOOK,
+    href: `/#${LANDING_SECTIONS.BOOK}`,
   },
+];
+
+const pageLinks = [
+  { text: 'Home', href: '/', page: 'home' as const },
+  { text: 'Partners', href: '/partners', page: 'partners' as const },
 ];
 ---
 
 <header>
   <div class="content">
+    <a href="/" class="logoLink">
     <svg
       width="135"
       height="36"
@@ -68,21 +80,39 @@ const links = [
         </clipPath>
       </defs>
     </svg>
+    </a>
 
     <div class="rightSide">
-      <div class="links">
+      <div class="pageLinks">
         {
-          links.map((item) => {
-            return (
-              <a href={'#' + item.href}>
-                <Typography styling="paragraphM" tag="span">
-                  {item.text}
-                </Typography>
-              </a>
-            );
-          })
+          pageLinks.map((item) => (
+            <a
+              href={item.href}
+              class:list={[{ active: currentPage === item.page }]}
+            >
+              <Typography styling="paragraphM" tag="span">
+                {item.text}
+              </Typography>
+            </a>
+          ))
         }
       </div>
+
+      {currentPage === 'home' && (
+        <div class="links">
+          {
+            links.map((item) => {
+              return (
+                <a href={item.href}>
+                  <Typography styling="paragraphM" tag="span">
+                    {item.text}
+                  </Typography>
+                </a>
+              );
+            })
+          }
+        </div>
+      )}
 
       <div class="buttons">
         <Button href="https://github.com/neuron-core/neuron-ai" text="github" variant="outline" />
@@ -109,9 +139,36 @@ const links = [
     margin: 0 auto;
   }
 
+  .logoLink {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
   .rightSide {
     display: flex;
     gap: var(--s-32);
+    align-items: center;
+  }
+
+  .pageLinks {
+    display: flex;
+    gap: var(--s-24);
+    align-items: center;
+
+    a {
+      color: var(--text-subtle);
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: var(--text-primary);
+      }
+
+      &.active {
+        color: var(--text-primary);
+      }
+    }
   }
 
   .links {

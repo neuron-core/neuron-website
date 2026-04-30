@@ -1,0 +1,40 @@
+---
+import MainLayout from '~components/layouts/MainLayout.astro';
+import PartnerHero from '~components/sections/partners/PartnerHero.astro';
+import PartnersGrid from '~components/sections/partners/PartnersGrid.astro';
+import WhyJoin from '~components/sections/partners/WhyJoin.astro';
+import PartnerBottomCTA from '~components/sections/partners/PartnerBottomCTA.astro';
+---
+
+<MainLayout
+  title="Partners — Neuron AI"
+  description="Neuron AI Partner Program — a vetted network of consultancies with direct maintainer access and preferential ecosystem terms."
+  currentPage="partners"
+>
+  <div class="partnersContent">
+    <PartnerHero />
+    <PartnersGrid />
+    <WhyJoin />
+    <PartnerBottomCTA />
+  </div>
+</MainLayout>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .partnersContent {
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 0;
+
+    & > :global(*) {
+      padding: 0 var(--s-24);
+    }
+
+    @media (width >= 1800px) {
+      border-right: 1px solid var(--border-soft);
+      border-left: 1px solid var(--border-soft);
+    }
+  }
+</style>

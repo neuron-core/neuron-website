@@ -1,0 +1,174 @@
+---
+import Typography from '~components/ui/Typography.astro';
+import PartnerCard from '~components/sections/partners/PartnerCards.astro';
+import { PARTNER_DATA, REGIONS } from '~consts/partnerData';
+---
+
+<div class="wrapper">
+  <div class="content">
+    <div class="sectionHeader">
+      <div class="headerLeft">
+        <Typography tag="span" styling="paragraphM" font="pixel" color="soft" class="eyebrow">
+          CERTIFIED PARTNERS
+        </Typography>
+        <Typography tag="h2" styling="headingL">
+          Find a partner
+        </Typography>
+      </div>
+      <Typography tag="p" styling="paragraphM" color="subtle" class="headerDesc">
+        Every partner has shipped Neuron AI in production and meets directly with the maintainers each month.
+      </Typography>
+    </div>
+
+    <div class="filters" id="regionFilters">
+      {REGIONS.map((r) => (
+        <button
+          class:list={['filterBtn', { active: r.id === 'all' }]}
+          data-region={r.id}
+        >
+          {r.label}
+        </button>
+      ))}
+    </div>
+
+    <div class="grid" id="partnersGrid">
+      {PARTNER_DATA.map((partner, i) => (
+        <div class="cardWrapper" data-partner-region={partner.region}>
+          <PartnerCard partner={partner} />
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<script>
+  const filters = document.getElementById('regionFilters');
+  const grid = document.getElementById('partnersGrid');
+
+  if (filters && grid) {
+    const buttons = filters.querySelectorAll<HTMLButtonElement>('.filterBtn');
+    const cards = grid.querySelectorAll<HTMLElement>('.cardWrapper');
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const region = btn.dataset.region;
+
+        buttons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        cards.forEach((card) => {
+          if (region === 'all' || card.dataset.partnerRegion === region) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        const visibleCount = Array.from(cards).filter(
+          (c) => c.style.display !== 'none'
+        ).length;
+        const eyebrow = filters
+          ?.closest('.content')
+          ?.querySelector('.eyebrow');
+        if (eyebrow) {
+          eyebrow.textContent = `CERTIFIED PARTNERS / ${String(visibleCount).padStart(2, '0')}`;
+        }
+      });
+    });
+  }
+</script>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    width: 100%;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-46);
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-64) 0;
+
+    @include media-min('lg') {
+      padding: var(--s-100) 0 var(--s-64);
+    }
+  }
+
+  .sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: var(--s-32);
+    border-bottom: 1px solid var(--border-soft);
+    padding-bottom: var(--s-32);
+  }
+
+  .headerLeft {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-12);
+  }
+
+  .eyebrow {
+    margin: 0;
+    font-size: 1.3rem;
+    letter-spacing: 0.08em;
+  }
+
+  .headerDesc {
+    margin: 0;
+    max-width: 420px;
+  }
+
+  .filters {
+    display: flex;
+    gap: var(--s-8);
+    flex-wrap: wrap;
+  }
+
+  .filterBtn {
+    font-family: GeistPixel, sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 0 var(--s-20);
+    height: 4rem;
+    border: 1px solid var(--border-soft);
+    background: transparent;
+    color: var(--text-subtle);
+    transition: background-color 0.2s ease, border-color 0.2s ease,
+      color 0.2s ease;
+
+    &.active {
+      border-color: var(--text-primary);
+      background: var(--bg-soft);
+      color: var(--text-primary);
+    }
+
+    &:hover:not(.active) {
+      border-color: var(--text-subtle);
+      color: var(--text-primary);
+    }
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-12);
+    width: 100%;
+
+    @include media-min('sm') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include media-min('lg') {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

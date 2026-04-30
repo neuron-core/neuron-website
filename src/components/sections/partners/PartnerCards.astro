@@ -1,0 +1,118 @@
+---
+import Typography from '~components/ui/Typography.astro';
+import type { Partner } from '~consts/partnerData';
+import { ACCENT_TOKEN } from '~consts/partnerData';
+
+interface Props {
+  partner: Partner;
+}
+
+const { partner } = Astro.props as Props;
+const tk = ACCENT_TOKEN[partner.accent] || ACCENT_TOKEN.agents;
+---
+
+<div class="card" style={`--accent-base: ${tk.base}; --accent-light: ${tk.light};`}>
+  <div class="logo" style={`--accent-base: ${tk.base}; --accent-light: ${tk.light};`}>
+    {partner.monogram}
+  </div>
+  <div class="info">
+    <Typography tag="h3" styling="headingS" class="name">
+      {partner.name}
+    </Typography>
+    <span class="location">
+      {partner.region} · {partner.location.toUpperCase()}
+    </span>
+  </div>
+  <Typography tag="p" styling="paragraphM" color="subtle" class="desc">
+    {partner.description}
+  </Typography>
+  <div class="bottom">
+    <a
+      href={`mailto:support@inspector.dev?subject=Intro%20to%20${encodeURIComponent(partner.name)}`}
+      class="contact"
+    >
+      CONTACT →
+    </a>
+  </div>
+</div>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-24);
+    padding: var(--s-32);
+    border: 1px solid var(--border-soft);
+    background: var(--bg-weak);
+    transition: background-color 0.25s ease, border-color 0.25s ease;
+    min-height: 260px;
+
+    &:hover {
+      background: var(--bg-soft);
+      border-color: var(--accent-base);
+    }
+  }
+
+  .logo {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-light);
+    border: 1px solid var(--accent-base);
+    color: var(--accent-base);
+    font-family: GeistPixel, sans-serif;
+    font-weight: 700;
+    font-size: 2.4rem;
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-4);
+    min-width: 0;
+  }
+
+  .name {
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .location {
+    margin: 0;
+    font-family: GeistPixel, sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.04em;
+    color: var(--text-soft);
+  }
+
+  .desc {
+    flex: 1;
+    margin: 0;
+  }
+
+  .bottom {
+    display: flex;
+    align-items: center;
+    padding-top: var(--s-12);
+  }
+
+  .contact {
+    font-family: GeistPixel, sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--accent-base);
+    }
+  }
+</style>

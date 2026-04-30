@@ -1,0 +1,91 @@
+---
+import Typography from '~components/ui/Typography.astro';
+import Button from '~components/ui/Button.astro';
+---
+
+<div class="wrapper">
+  <div class="content">
+    <div class="inner">
+      <Typography tag="span" styling="paragraphM" font="pixel" color="agents">
+        NEURON AI / PARTNER PROGRAM
+      </Typography>
+      <Typography tag="h1" styling="headingXl">
+        Hand-picked partners,<br />engineered into the framework.
+      </Typography>
+      <Typography tag="p" styling="paragraphL" color="subtle" class="lede">
+        A small, vetted network of consultancies and product teams with direct access to the Neuron AI maintainers and preferential conditions across the ecosystem — Inspector, NeuronHub, Maestro and beyond.
+      </Typography>
+      <div class="ctas">
+        <Button
+          href="mailto:support@inspector.dev?subject=Neuron%20AI%20Partner%20Program"
+          text="become a partner"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="stripe">
+    <div class="bar agents" />
+    <div class="bar workflows" />
+    <div class="bar vector" />
+    <div class="bar monitoring" />
+  </div>
+</div>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    width: 100%;
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  .content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-64) 0;
+
+    @include media-min('lg') {
+      padding: var(--s-100) 0 var(--s-64);
+    }
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-24);
+  }
+
+  .lede {
+    max-width: 640px;
+    padding-top: var(--s-12);
+    padding-bottom: var(--s-24);
+  }
+
+  .ctas {
+    display: flex;
+    gap: var(--s-12);
+    flex-wrap: wrap;
+  }
+
+  .stripe {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    height: 8px;
+  }
+
+  .agents {
+    background: var(--bg-agents-base);
+  }
+
+  .workflows {
+    background: var(--bg-workflows-base);
+  }
+
+  .vector {
+    background: var(--bg-vector-base);
+  }
+
+  .monitoring {
+    background: var(--bg-monitoring-base);
+  }
+</style>
