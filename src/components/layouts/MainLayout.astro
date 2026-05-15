@@ -75,11 +75,13 @@ const ogUrlFinal = ogUrl || Astro.url.href;
     <!-- Gitbook widget -->
     <script src="https://docs.neuron-ai.dev/~gitbook/embed/script.js"></script>
     <script>
-      window.GitBook("configure", {
-        button: {
-          label: "Ask",
-          icon: "assistant", // 'assistant' | 'sparkle' | 'help' | 'book'
-        },
+      document.addEventListener('DOMContentLoaded', function() {
+        window.GitBook("configure", {
+          button: {
+            label: "Ask",
+            icon: "assistant", // 'assistant' | 'sparkle' | 'help' | 'book'
+          },
+        });
       });
     </script>
 
