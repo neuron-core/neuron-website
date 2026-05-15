@@ -80,7 +80,9 @@ const pageLinks = [
   </div>
 </header>
 
-<style>
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
   header {
     position: sticky;
     top: 0;
@@ -109,14 +111,22 @@ const pageLinks = [
 
   .rightSide {
     display: flex;
-    gap: var(--s-32);
+    gap: var(--s-16);
     align-items: center;
+
+    @include media-min('sm') {
+      gap: var(--s-32);
+    }
   }
 
   .pageLinks {
-    display: flex;
-    gap: var(--s-24);
-    align-items: center;
+    display: none;
+
+    @include media-min('md') {
+      display: flex;
+      gap: var(--s-24);
+      align-items: center;
+    }
 
     a {
       color: var(--text-subtle);
@@ -134,9 +144,13 @@ const pageLinks = [
   }
 
   .links {
-    display: flex;
-    gap: var(--s-24);
-    align-items: center;
+    display: none;
+
+    @include media-min('md') {
+      display: flex;
+      gap: var(--s-24);
+      align-items: center;
+    }
 
     a {
       color: var(--text-primary);
@@ -146,6 +160,10 @@ const pageLinks = [
 
   .buttons {
     display: flex;
-    gap: var(--s-12);
+    gap: var(--s-8);
+
+    @include media-min('sm') {
+      gap: var(--s-12);
+    }
   }
 </style>

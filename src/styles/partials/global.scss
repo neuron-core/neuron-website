@@ -1,5 +1,9 @@
 @use './typography' as *;
 
+html {
+  overflow-x: clip;
+}
+
 :root {
   font-family: Inter, sans-serif;
 
