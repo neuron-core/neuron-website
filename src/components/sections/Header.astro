@@ -78,6 +78,12 @@ const pageLinks = [
       </div>
     </div>
   </div>
+
+  <div class="mobileNav">
+    <a href="/partners" class:list={[{ active: currentPage === 'partners' }]}>
+      <Typography styling="paragraphM" tag="span">Partners</Typography>
+    </a>
+  </div>
 </header>
 
 <style lang="scss">
@@ -89,7 +95,6 @@ const pageLinks = [
     z-index: var(--z-index-high);
     width: 100%;
     background: var(--bg-primary);
-    border-bottom: 1px solid var(--border-soft);
   }
 
   .content {
@@ -101,6 +106,11 @@ const pageLinks = [
     max-width: var(--max-width);
     height: 74px;
     margin: 0 auto;
+    border-bottom: 1px solid var(--border-soft);
+
+    @include media-min('md') {
+      border-bottom: none;
+    }
   }
 
   .logoLink {
@@ -164,6 +174,34 @@ const pageLinks = [
 
     @include media-min('sm') {
       gap: var(--s-12);
+    }
+  }
+
+  .mobileNav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-8) 0;
+    border-bottom: 1px solid var(--border-soft);
+
+    a {
+      color: var(--text-subtle);
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: var(--text-primary);
+      }
+
+      &.active {
+        color: var(--text-primary);
+      }
+    }
+
+    @include media-min('md') {
+      display: none;
     }
   }
 </style>
