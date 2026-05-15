@@ -1,19 +1,34 @@
 ---
 import Typography from '~components/ui/Typography.astro';
-import Button from '~components/ui/Button.astro';
 
-const WHY_JOIN_ITEMS = [
+const PERKS = [
   {
-    title: 'Direct line to the maintainers',
-    body: 'Monthly office hours with the Neuron AI core team, a private Slack channel, and roadmap previews before they ship. Your customers know you\'re never more than a message away from the source.',
+    title: 'Technical Visibility',
+    body: "Get featured on our official partners' showcase to reach CTOs looking for proven AI implementation partners.",
   },
   {
-    title: 'Co-marketing and lead routing',
-    body: 'Featured placement on neuron-ai.dev, joint case studies, and inbound leads matched on region and specialty. Your authority becomes part of how the framework reaches enterprise PHP.',
+    title: 'Official Partner Badge',
+    body: 'Receive the official "Neuron AI Partner" digital badge to display on your website and documentation, certifying your active role in the ecosystem.',
   },
   {
-    title: 'Experience that means something',
-    body: 'Every partner ships at least one Neuron AI workload in production before listing. We vet, we onboard, we keep the bar high — so the badge keeps its weight.',
+    title: 'Direct Core Access',
+    body: "A priority channel for technical Q&A with Neuron's core developers. We help you unblock complex architectural challenges.",
+  },
+  {
+    title: 'Monthly Technical Call',
+    body: 'A dedicated session to discuss the roadmap, preview upcoming features, and get direct feedback on your production use cases.',
+  },
+  {
+    title: 'Joint Marketing & Social Amplification',
+    body: "We don't just list your logo; we promote your expertise. Benefit from featured placement on neuron-ai.dev, dedicated social media spotlights, and joint case studies. We amplify your innovations to our specialized PHP community to build your authority as a leader in Agentic AI.",
+  },
+  {
+    title: 'Documentation Indexing',
+    body: 'Showcase your custom connectors or extensions in our official "Neuron Hub" section to demonstrate technical authority.',
+  },
+  {
+    title: 'Ecosystem Perks',
+    body: 'Access exclusive bonuses and service credits shared within our network of professional AI supporters.',
   },
 ];
 ---
@@ -22,30 +37,27 @@ const WHY_JOIN_ITEMS = [
   <div class="content">
     <div class="leftCol">
       <Typography tag="span" styling="paragraphM" font="pixel" color="monitoring">
-        WHY JOIN
+        THE PARTNERSHIP PERKS
       </Typography>
       <Typography tag="h2" styling="headingL">
-        Built for teams who ship.
+        Grow your expertise as a Neuron Partner.
       </Typography>
       <Typography tag="p" styling="paragraphL" color="subtle" class="subtitle">
-        The partner program is selective on purpose. Three guarantees, in writing, for every partner.
+        Joining the Neuron Partner Network is about positioning your team at the core of the PHP AI transition. It's a technical alliance designed for those who are actively shipping AI agents to production.
       </Typography>
-      <div class="cta">
-        <Button href="/become-a-partner" text="become a partner" />
-      </div>
     </div>
     <ol class="list">
-      {WHY_JOIN_ITEMS.map((item, i) => (
+      {PERKS.map((perk, i) => (
         <li class:list={[{ first: i === 0 }]}>
           <span class="number">
             {String(i + 1).padStart(2, '0')} /
           </span>
           <div class="itemContent">
             <Typography tag="h3" styling="headingS" class="itemTitle">
-              {item.title}
+              {perk.title}
             </Typography>
             <Typography tag="p" styling="paragraphL" color="subtle" class="itemBody">
-              {item.body}
+              {perk.body}
             </Typography>
           </div>
         </li>
@@ -81,24 +93,17 @@ const WHY_JOIN_ITEMS = [
     display: flex;
     flex-direction: column;
     gap: var(--s-20);
-  }
 
-  .eyebrow {
-    margin: 0;
-    color: var(--bg-monitoring-base);
-    font-family: GeistPixel, sans-serif;
-    font-size: 1.3rem;
-    letter-spacing: 0.08em;
+    @include media-min('lg') {
+      position: sticky;
+      top: var(--s-100);
+      align-self: start;
+    }
   }
 
   .subtitle {
     margin: 0;
     margin-top: var(--s-12);
-  }
-
-  .cta {
-    margin-top: var(--s-12);
-    align-self: flex-start;
   }
 
   .list {

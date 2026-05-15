@@ -1,0 +1,277 @@
+---
+import Typography from '~components/ui/Typography.astro';
+import Button from '~components/ui/Button.astro';
+---
+
+<div class="wrapper" id="apply">
+  <div class="content">
+    <div class="formHeader">
+      <Typography tag="span" styling="paragraphM" font="pixel" color="agents">
+        SUBMIT YOUR APPLICATION
+      </Typography>
+      <Typography tag="h2" styling="headingL">
+        Show us what you've built.
+      </Typography>
+      <Typography tag="p" styling="paragraphL" color="subtle" class="requirement">
+        To maintain engineering standards, we require a link to a live project, repository, or application built with Neuron AI during the subscription process.
+      </Typography>
+    </div>
+
+    <form class="form" id="partnerForm" novalidate action="https://formspree.io/f/xkoydwog" method="POST">
+      <div class="formSection">
+        <Typography tag="span" styling="paragraphM" font="pixel" color="subtle" class="formLabel">
+          PROJECT INFORMATION (REQUIRED)
+        </Typography>
+        <div class="fields">
+          <div class="field">
+            <input
+              type="text"
+              name="company"
+              class="input"
+              placeholder="Company name"
+              required
+            />
+          </div>
+          <div class="field">
+            <input
+              type="url"
+              name="website"
+              class="input"
+              placeholder="Company website URL"
+              required
+            />
+          </div>
+          <div class="field">
+            <input
+              type="email"
+              name="email"
+              class="input"
+              placeholder="Contact email"
+              required
+            />
+          </div>
+          <div class="field">
+            <input
+              type="url"
+              name="projectLink"
+              class="input"
+              placeholder="Link to your Neuron AI project (live app, repo, or demo)"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="formSection">
+        <Typography tag="span" styling="paragraphM" font="pixel" color="subtle" class="formLabel">
+          NETWORK BONUSES (OPTIONAL)
+        </Typography>
+        <Typography tag="p" styling="paragraphM" color="subtle" class="bonusHint">
+          Share any exclusive bonuses or service discounts you would like to offer to other members of the Neuron Partners to foster and strengthen the network.
+        </Typography>
+        <div class="fields">
+          <div class="field">
+            <textarea
+              name="bonuses"
+              class="textarea"
+              placeholder="Describe the bonuses or discounts you'd like to share with the network..."
+              rows="4"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="formFooter">
+        <Typography tag="p" styling="paragraphM" color="subtle" class="investment">
+          Investment: <strong class="price">€300 / month</strong>
+        </Typography>
+        <button type="submit" class="submitButton">SUBMIT APPLICATION</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    width: 100%;
+    border-top: 1px solid var(--border-soft);
+  }
+
+  .content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-64) 0;
+
+    @include media-min('lg') {
+      padding: var(--s-100) 0;
+    }
+  }
+
+  .formHeader {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-24);
+    max-width: 640px;
+  }
+
+  .requirement {
+    margin: 0;
+  }
+
+  .form {
+    margin-top: var(--s-46);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-46);
+  }
+
+  .formSection {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-20);
+    padding-top: var(--s-32);
+    border-top: 1px solid var(--border-soft);
+  }
+
+  .formLabel {
+    margin: 0;
+    letter-spacing: 0.08em;
+  }
+
+  .bonusHint {
+    margin: 0;
+    max-width: 640px;
+  }
+
+  .fields {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-12);
+  }
+
+  .field {
+    width: 100%;
+  }
+
+  .input,
+  .textarea {
+    width: 100%;
+    padding: var(--s-10) var(--s-16);
+    border: 1px solid var(--border-subtle);
+    font-family: GeistPixel, sans-serif;
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    background-color: var(--bg-soft);
+
+    &::placeholder {
+      color: var(--text-subtle);
+    }
+
+    &:focus {
+      border-color: var(--text-subtle);
+      outline: none;
+    }
+  }
+
+  .input {
+    height: 4.6rem;
+  }
+
+  .textarea {
+    min-height: 12rem;
+    resize: vertical;
+  }
+
+  .formFooter {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-24);
+    padding-top: var(--s-32);
+    border-top: 1px solid var(--border-soft);
+
+    @include media-min('md') {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .investment {
+    margin: 0;
+  }
+
+  .price {
+    color: var(--text-primary);
+  }
+
+  .submitButton {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4.6rem;
+    padding: 0 var(--s-16);
+    border: transparent;
+    font-family: GeistPixel, sans-serif;
+    font-size: 1.4rem;
+    color: var(--text-strong);
+    text-transform: uppercase;
+    background-color: var(--bg-white);
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('partnerForm') as HTMLFormElement | null;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const urlRegex = /^https?:\/\/.+/;
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(form);
+    const company = String(formData.get('company') ?? '').trim();
+    const website = String(formData.get('website') ?? '').trim();
+    const email = String(formData.get('email') ?? '').trim();
+    const projectLink = String(formData.get('projectLink') ?? '').trim();
+
+    const emailInput = form.querySelector<HTMLInputElement>('input[name="email"]');
+    const websiteInput = form.querySelector<HTMLInputElement>('input[name="website"]');
+    const projectInput = form.querySelector<HTMLInputElement>('input[name="projectLink"]');
+
+    emailInput?.setCustomValidity('');
+    websiteInput?.setCustomValidity('');
+    projectInput?.setCustomValidity('');
+
+    if (!company) {
+      form.reportValidity();
+      return;
+    }
+
+    if (!urlRegex.test(website)) {
+      websiteInput?.setCustomValidity('Please enter a valid URL (e.g. https://example.com)');
+      form.reportValidity();
+      return;
+    }
+
+    if (!emailRegex.test(email)) {
+      emailInput?.setCustomValidity('Please enter a valid email address');
+      form.reportValidity();
+      return;
+    }
+
+    if (!urlRegex.test(projectLink)) {
+      projectInput?.setCustomValidity('Please enter a valid URL to your Neuron AI project');
+      form.reportValidity();
+      return;
+    }
+
+    // TODO: implement HTTP call
+    console.log('Partner application submitted', { company, website, email, projectLink, bonuses: String(formData.get('bonuses') ?? '').trim() });
+  });
+</script>

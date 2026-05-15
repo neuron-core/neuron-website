@@ -1,0 +1,40 @@
+---
+import MainLayout from '~components/layouts/MainLayout.astro';
+import BecomePartnerHero from '~components/sections/become-partner/BecomePartnerHero.astro';
+import BecomePartnerPerks from '~components/sections/become-partner/BecomePartnerPerks.astro';
+import BecomePartnerForm from '~components/sections/become-partner/BecomePartnerForm.astro';
+import BecomePartnerPolicy from '~components/sections/become-partner/BecomePartnerPolicy.astro';
+---
+
+<MainLayout
+  title="Become a Partner — Neuron AI"
+  description="Apply to join the Neuron AI Partner Network — a vetted alliance of PHP teams shipping production-ready Agentic AI."
+  currentPage="partners"
+>
+  <div class="becomePartnerContent">
+    <BecomePartnerHero />
+    <BecomePartnerPerks />
+    <BecomePartnerForm />
+    <BecomePartnerPolicy />
+  </div>
+</MainLayout>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .becomePartnerContent {
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 0;
+
+    & > :global(*) {
+      padding: 0 var(--s-24);
+    }
+
+    @media (width >= 1800px) {
+      border-right: 1px solid var(--border-soft);
+      border-left: 1px solid var(--border-soft);
+    }
+  }
+</style>

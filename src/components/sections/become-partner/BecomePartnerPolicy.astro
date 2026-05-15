@@ -1,0 +1,74 @@
+---
+import Typography from '~components/ui/Typography.astro';
+---
+
+<div class="wrapper">
+  <div class="content">
+    <div class="col">
+      <Typography tag="span" styling="paragraphM" font="pixel" color="workflows">
+        POLICY
+      </Typography>
+      <Typography tag="h3" styling="headingM">
+        Vetted by design.
+      </Typography>
+      <Typography tag="p" styling="paragraphL" color="subtle" class="body">
+        Our partners are active contributors and <strong>power users</strong> of the Neuron ecosystem. Every company listed here has successfully deployed AI agents, maintaining the high standards expected by the PHP engineering community.
+      </Typography>
+      <Typography tag="p" styling="paragraphS" color="soft" class="disclaimer">
+        Neuron AI Partners are independent entities. While they are vetted supporters and experienced users of the framework, Neuron AI does not assume responsibility for their professional services or contractual conduct. Engaging with a partner is at the client's sole discretion and risk.
+      </Typography>
+    </div>
+    <div class="col">
+      <Typography tag="span" styling="paragraphM" font="pixel" color="monitoring">
+        SUBSCRIPTION POLICY
+      </Typography>
+      <Typography tag="h3" styling="headingM">
+        Cancel anytime.
+      </Typography>
+      <Typography tag="p" styling="paragraphL" color="subtle" class="body">
+        You can cancel your partnership subscription at any time. If you cancel after a payment has been processed, your partnership status and benefits will remain active until the end of the current billing cycle. No further charges will be applied, and the subscription will be permanently terminated thereafter.
+      </Typography>
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    width: 100%;
+    border-top: 1px solid var(--border-soft);
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-46);
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-64) 0;
+
+    @include media-min('lg') {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-64);
+      padding: var(--s-100) 0;
+    }
+  }
+
+  .col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-20);
+  }
+
+  .body {
+    margin: 0;
+  }
+
+  .disclaimer {
+    margin: 0;
+    margin-top: var(--s-8);
+    padding-top: var(--s-20);
+    border-top: 1px solid var(--border-soft);
+  }
+</style>

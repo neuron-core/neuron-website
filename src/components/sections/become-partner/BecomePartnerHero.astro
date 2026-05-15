@@ -1,26 +1,19 @@
 ---
 import Typography from '~components/ui/Typography.astro';
-import Button from '~components/ui/Button.astro';
 ---
 
 <div class="wrapper">
   <div class="content">
     <div class="inner">
       <Typography tag="span" styling="paragraphM" font="pixel" color="agents">
-        NEURON AI / PARTNER PROGRAM
+        NEURON AI / PARTNER NETWORK
       </Typography>
       <Typography tag="h1" styling="headingXl">
-        Hand-picked partners,<br />engineered into the framework.
+        Neuron AI Partner<br />Network
       </Typography>
       <Typography tag="p" styling="paragraphL" color="subtle" class="lede">
-        A small, vetted network of consultancies and product teams with direct access to the Neuron AI maintainers and preferential conditions across the ecosystem — Inspector, NeuronHub, Maestro and beyond.
+        Connect with <strong>vetted</strong> software houses and agencies building production-ready Agentic AI. Our partners are experienced teams who leverage the PHP stack to deliver scalable AI solutions.
       </Typography>
-      <div class="ctas">
-        <Button
-          href="/become-a-partner"
-          text="become a partner"
-        />
-      </div>
     </div>
   </div>
   <div class="stripe">
@@ -58,13 +51,6 @@ import Button from '~components/ui/Button.astro';
   .lede {
     max-width: 640px;
     padding-top: var(--s-12);
-    padding-bottom: var(--s-24);
-  }
-
-  .ctas {
-    display: flex;
-    gap: var(--s-12);
-    flex-wrap: wrap;
   }
 
   .stripe {
