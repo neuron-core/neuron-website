@@ -78,16 +78,6 @@ Use camelCase for CSS class names, not kebab-case.
 - SCSS for styling (scoped `<style lang="scss">`)
 - Mobile-first responsive approach
 
-
-## Code Standards
-
-- Strict types: `declare(strict_types=1)`
-- PSR-12 formatting
-- PHPStan level 5
-- 100% type coverage (params, returns, properties)
-- PHP 8.1+ features (enums, constructor promotion)
-- Use **protected** visibility for non-public properties and methods (never private)
-
 ## Think Before Coding
 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
