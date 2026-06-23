@@ -66,7 +66,7 @@ export const PARTNER_DATA: Partner[] = [
     location: 'EU',
     description:
       'Italian tech company and system integrator. Cloud-native, AI, and custom software specialists shipping Neuron AI into enterprise platforms.',
-    accent: 'agents',
+    accent: 'monitoring',
     logo: sparkfabrikLogo,
     website: 'https://www.sparkfabrik.com',
     email: 'info@sparkfabrik.com',
