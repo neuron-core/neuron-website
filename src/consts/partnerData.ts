@@ -13,6 +13,7 @@ import inspectorLogo from '~assets/partners/inspector.svg';
 import tobeeLogo from '~assets/partners/tobee.svg';
 import regoloLogo from '~assets/partners/regolo.svg';
 import threeDZeroLogo from '~assets/partners/3d0.svg';
+import sparkfabrikLogo from '~assets/partners/sparkfabrik.png';
 
 export const PARTNER_DATA: Partner[] = [
   {
@@ -58,6 +59,17 @@ export const PARTNER_DATA: Partner[] = [
     logo: threeDZeroLogo,
     website: 'https://www.3d0.it',
     email: 'info@3d0.it',
+  },
+  {
+    name: 'SparkFabrik',
+    region: 'EU',
+    location: 'EU',
+    description:
+      'Italian tech company and system integrator. Cloud-native, AI, and custom software specialists shipping Neuron AI into enterprise platforms.',
+    accent: 'agents',
+    logo: sparkfabrikLogo,
+    website: 'https://www.sparkfabrik.com',
+    email: 'info@sparkfabrik.com',
   },
 ];
 
