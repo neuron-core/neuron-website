@@ -1,0 +1,156 @@
+---
+import Typography from '~components/ui/Typography.astro';
+
+const AGENDA = [
+  {
+    title: 'The PHP architectural gap',
+    body: 'Why agentic-native development needs a different foundation, and how Neuron finally gives PHP one.',
+  },
+  {
+    title: 'Messaging layer',
+    body: 'Talk to any provider through one unified interface, with intelligent routing and multimodal input, so you stop rewriting integrations every time a model changes.',
+  },
+  {
+    title: 'Streaming',
+    body: 'Real-time output wired straight into your UI, so your app stays responsive instead of frozen while the agent thinks.',
+  },
+  {
+    title: 'Memory',
+    body: 'Context window management and long-term semantic memory, so your agents remember what matters and stay affordable at scale.',
+  },
+  {
+    title: 'Tools & toolkits',
+    body: 'Composable capabilities that extend what your agents can do and plug them into your existing systems.',
+  },
+  {
+    title: 'Workflow architecture',
+    body: 'Event-driven, durable, interruptible execution: the difference between a demo and something that survives production.',
+  },
+  {
+    title: 'Live Q&A',
+    body: "Bring your architecture, we'll pressure-test it with you.",
+  },
+];
+---
+
+<div class="wrapper">
+  <div class="content">
+    <div class="leftCol">
+      <Typography tag="span" styling="paragraphM" font="pixel" color="agents">
+        90 MINUTES, LIVE
+      </Typography>
+      <Typography tag="h2" styling="headingL">
+        Inside the session
+      </Typography>
+      <Typography tag="p" styling="paragraphL" color="subtle">
+        About 90 minutes with the people who build Neuron, live coding demos throughout, designed to make your team productive with the framework the moment it ends. Here's what we cover:
+      </Typography>
+    </div>
+    <div class="rightCol">
+      <ol class="list">
+        {AGENDA.map((item, i) => (
+          <li class:list={[{ first: i === 0 }]}>
+            <span class="number">
+              {String(i + 1).padStart(2, '0')} /
+            </span>
+            <div class="itemContent">
+              <Typography tag="h3" styling="headingS">
+                {item.title}
+              </Typography>
+              <Typography tag="p" styling="paragraphL" color="subtle">
+                {item.body}
+              </Typography>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <Typography tag="p" styling="headingXs" class="closing">
+        By the end, your team can start building on Neuron with the same patterns we use ourselves.
+      </Typography>
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    width: 100%;
+    border-top: 1px solid var(--border-soft);
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-46);
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-64) 0;
+
+    @include media-min('lg') {
+      grid-template-columns: 1fr 1.6fr;
+      gap: var(--s-64);
+      padding: var(--s-100) 0;
+    }
+  }
+
+  .leftCol {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-20);
+
+    @include media-min('lg') {
+      position: sticky;
+      top: var(--s-100);
+      align-self: start;
+    }
+  }
+
+  .rightCol {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rightCol :global(.closing) {
+    margin-top: var(--s-32);
+    max-width: 640px;
+  }
+
+  .list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  li {
+    display: flex;
+    gap: var(--s-32);
+    padding: var(--s-32) 0;
+    border-bottom: 1px solid var(--border-soft);
+    align-items: baseline;
+
+    &.first {
+      border-top: 1px solid var(--border-soft);
+    }
+  }
+
+  .number {
+    font-weight: 700;
+    font-size: 2.4rem;
+    color: var(--bg-agents-base);
+    font-family: GeistPixel, sans-serif;
+    line-height: 1.3;
+    min-width: 5.6rem;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .itemContent {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-12);
+    flex: 1;
+  }
+</style>

@@ -1,0 +1,52 @@
+---
+import MainLayout from '~components/layouts/MainLayout.astro';
+import KickstartHero from '~components/sections/kickstart/KickstartHero.astro';
+import KickstartAudience from '~components/sections/kickstart/KickstartAudience.astro';
+import KickstartSteps from '~components/sections/kickstart/KickstartSteps.astro';
+import KickstartWhy from '~components/sections/kickstart/KickstartWhy.astro';
+import KickstartSession from '~components/sections/kickstart/KickstartSession.astro';
+import KickstartCTA from '~components/sections/kickstart/KickstartCTA.astro';
+import PartnersGrid from '~components/sections/partners/PartnersGrid.astro';
+---
+
+<MainLayout
+  title="Kickstart — Neuron AI"
+  description="Bring a real project you want to build with Neuron. We get on a short call, and if it's a fit, we train your developers ourselves. On us."
+  currentPage="kickstart"
+>
+  <div class="kickstartContent">
+    <KickstartHero />
+    <KickstartAudience />
+    <KickstartSteps />
+    <KickstartWhy />
+    <KickstartSession />
+    <div class="partnersSection">
+      <PartnersGrid title="Partners" />
+    </div>
+    <KickstartCTA />
+  </div>
+</MainLayout>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .kickstartContent {
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 0;
+
+    & > :global(*) {
+      padding: 0 var(--s-24);
+    }
+
+    @media (width >= 1800px) {
+      border-right: 1px solid var(--border-soft);
+      border-left: 1px solid var(--border-soft);
+    }
+  }
+
+  .partnersSection {
+    border-top: 1px solid var(--border-soft);
+  }
+</style>

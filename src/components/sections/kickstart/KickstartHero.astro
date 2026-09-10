@@ -1,0 +1,91 @@
+---
+import Typography from '~components/ui/Typography.astro';
+import Button from '~components/ui/Button.astro';
+import { KICKSTART_CALL_URL } from '~consts/kickstart';
+---
+
+<div class="wrapper">
+  <div class="content">
+    <div class="inner">
+      <Typography tag="span" styling="paragraphM" font="pixel" color="agents">
+        NEURON AI / KICKSTART
+      </Typography>
+      <Typography tag="h1" styling="headingXl" class="title">
+        Start your team on Neuron, with the people who built it.
+      </Typography>
+      <Typography tag="p" styling="paragraphL" color="subtle" class="lede">
+        Bring a real project you want to build with Neuron. We get on a short call, and if it's a fit, we train your developers ourselves. On us. Your next application will be agentic, and we help your team get there fast.
+      </Typography>
+      <div class="ctas">
+        <Button href={KICKSTART_CALL_URL} text="Book your intro call" />
+      </div>
+    </div>
+  </div>
+  <div class="stripe">
+    <div class="bar agents" />
+    <div class="bar workflows" />
+    <div class="bar vector" />
+    <div class="bar monitoring" />
+  </div>
+</div>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    width: 100%;
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  .content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-64) 0;
+
+    @include media-min('lg') {
+      padding: var(--s-100) 0 var(--s-64);
+    }
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-24);
+  }
+
+  .inner :global(.title) {
+    max-width: 960px;
+  }
+
+  .inner :global(.lede) {
+    max-width: 640px;
+  }
+
+  .ctas {
+    display: flex;
+    gap: var(--s-12);
+    flex-wrap: wrap;
+  }
+
+  .stripe {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    height: 8px;
+  }
+
+  .agents {
+    background: var(--bg-agents-base);
+  }
+
+  .workflows {
+    background: var(--bg-workflows-base);
+  }
+
+  .vector {
+    background: var(--bg-vector-base);
+  }
+
+  .monitoring {
+    background: var(--bg-monitoring-base);
+  }
+</style>

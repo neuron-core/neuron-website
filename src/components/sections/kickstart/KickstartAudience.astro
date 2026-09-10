@@ -1,0 +1,105 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import Typography from '~components/ui/Typography.astro';
+
+const checkIcon = fs.readFileSync(
+  path.resolve('src/assets/icons/check.svg'),
+  'utf-8',
+);
+
+const AUDIENCE = [
+  "You're building a product on Neuron, or about to.",
+  'You deliver software for clients and want to propose or ship agentic apps with Neuron.',
+  'You have a concrete project on the table, and a team ready to build it.',
+];
+---
+
+<div class="wrapper">
+  <div class="content">
+    <div class="leftCol">
+      <Typography tag="span" styling="paragraphM" font="pixel" color="workflows">
+        THE FIT
+      </Typography>
+      <Typography tag="h2" styling="headingL">
+        Who this is for
+      </Typography>
+      <Typography tag="p" styling="paragraphL" color="subtle">
+        This is for teams with a real project to build, not a general enquiry.
+      </Typography>
+    </div>
+    <ul class="list">
+      {AUDIENCE.map((item, i) => (
+        <li class:list={[{ first: i === 0 }]}>
+          <span class="icon" set:html={checkIcon} />
+          <Typography tag="p" styling="headingXs">
+            {item}
+          </Typography>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    width: 100%;
+    border-top: 1px solid var(--border-soft);
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-46);
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-64) 0;
+
+    @include media-min('lg') {
+      grid-template-columns: 1fr 1.6fr;
+      gap: var(--s-64);
+      padding: var(--s-100) 0;
+    }
+  }
+
+  .leftCol {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-20);
+  }
+
+  .list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  li {
+    display: flex;
+    gap: var(--s-24);
+    padding: var(--s-32) 0;
+    border-bottom: 1px solid var(--border-soft);
+    align-items: flex-start;
+
+    &.first {
+      border-top: 1px solid var(--border-soft);
+    }
+  }
+
+  .icon {
+    width: 2.4rem;
+    margin-top: var(--s-2);
+    color: var(--text-workflows);
+    flex-shrink: 0;
+
+    :global(svg) {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+</style>

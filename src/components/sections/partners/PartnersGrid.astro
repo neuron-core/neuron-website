@@ -2,6 +2,18 @@
 import Typography from '~components/ui/Typography.astro';
 import PartnerCard from '~components/sections/partners/PartnerCards.astro';
 import { PARTNER_DATA, REGIONS } from '~consts/partnerData';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+}
+
+const {
+  eyebrow = 'CERTIFIED PARTNERS',
+  title = 'Find a partner',
+  description = 'Every partner has shipped Neuron AI in production and meets directly with the maintainers each month.',
+} = Astro.props as Props;
 ---
 
 <div class="wrapper">
@@ -9,14 +21,14 @@ import { PARTNER_DATA, REGIONS } from '~consts/partnerData';
     <div class="sectionHeader">
       <div class="headerLeft">
         <Typography tag="span" styling="paragraphM" font="pixel" color="soft" class="eyebrow">
-          CERTIFIED PARTNERS
+          {eyebrow}
         </Typography>
         <Typography tag="h2" styling="headingL">
-          Find a partner
+          {title}
         </Typography>
       </div>
       <Typography tag="p" styling="paragraphM" color="subtle" class="headerDesc">
-        Every partner has shipped Neuron AI in production and meets directly with the maintainers each month.
+        {description}
       </Typography>
     </div>
 
