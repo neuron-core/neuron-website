@@ -1,10 +1,16 @@
 ---
+import { Image } from 'astro:assets';
 import Typography from '~components/ui/Typography.astro';
 import Button from '~components/ui/Button.astro';
+import heroGrid from '~assets/hero-grid.svg';
 import { KICKSTART_CALL_URL } from '~consts/kickstart';
+
+const FACTS = ['ON US', 'ABOUT 90 MINUTES, LIVE', 'WITH THE PEOPLE WHO BUILT NEURON'];
 ---
 
 <div class="wrapper">
+  <Image src={heroGrid} alt="" class="heroGrid" />
+
   <div class="content">
     <div class="inner">
       <Typography tag="span" styling="paragraphM" font="pixel" color="agents">
@@ -18,9 +24,20 @@ import { KICKSTART_CALL_URL } from '~consts/kickstart';
       </Typography>
       <div class="ctas">
         <Button href={KICKSTART_CALL_URL} text="Book your intro call" />
+        <Button href="#inside-the-session" text="See what we cover" variant="outline" />
       </div>
+      <ul class="facts">
+        {FACTS.map((fact) => (
+          <li class="fact">
+            <Typography tag="span" styling="bodyM" font="pixel" color="subtle">
+              {fact}
+            </Typography>
+          </li>
+        ))}
+      </ul>
     </div>
   </div>
+
   <div class="stripe">
     <div class="bar agents" />
     <div class="bar workflows" />
@@ -33,11 +50,28 @@ import { KICKSTART_CALL_URL } from '~consts/kickstart';
   @use '~styles/mixins/media' as *;
 
   .wrapper {
+    position: relative;
+    overflow: hidden;
     width: 100%;
     border-bottom: 1px solid var(--border-soft);
   }
 
+  .wrapper :global(.heroGrid) {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+    width: auto;
+    height: 100%;
+
+    @include media-min('xl') {
+      display: block;
+    }
+  }
+
   .content {
+    position: relative;
     max-width: var(--max-width);
     margin: 0 auto;
     padding: var(--s-64) 0;
@@ -54,7 +88,7 @@ import { KICKSTART_CALL_URL } from '~consts/kickstart';
   }
 
   .inner :global(.title) {
-    max-width: 960px;
+    max-width: 820px;
   }
 
   .inner :global(.lede) {
@@ -67,7 +101,24 @@ import { KICKSTART_CALL_URL } from '~consts/kickstart';
     flex-wrap: wrap;
   }
 
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-8);
+    margin: var(--s-12) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .fact {
+    display: inline-flex;
+    padding: var(--s-6) var(--s-12);
+    border: 1px solid var(--border-soft);
+    background-color: var(--bg-soft);
+  }
+
   .stripe {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     height: 8px;
