@@ -1,0 +1,128 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+
+interface Props {
+  videoId: string;
+  title: string;
+}
+
+const { videoId, title } = Astro.props as Props;
+
+const playIcon = fs.readFileSync(
+  path.resolve('src/assets/icons/play-icon.svg'),
+  'utf-8',
+);
+
+const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+---
+
+<div class="frame" data-youtube-embed>
+  <button class="facade" type="button" aria-label={`Play video: ${title}`}>
+    <img src={thumbnailUrl} alt="" loading="lazy" class="thumbnail" />
+    <span class="playIcon" aria-hidden="true" set:html={playIcon} />
+  </button>
+  <template>
+    <iframe
+      class="player"
+      src={embedUrl}
+      title={title}
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+    ></iframe>
+  </template>
+</div>
+
+<script>
+  document
+    .querySelectorAll<HTMLElement>('[data-youtube-embed]')
+    .forEach((frame) => {
+      const facade = frame.querySelector('button');
+      const template = frame.querySelector('template');
+      if (!facade || !template) return;
+
+      facade.addEventListener('click', () => {
+        frame.replaceChildren(template.content.cloneNode(true));
+        frame.querySelector('iframe')?.focus();
+      });
+    });
+</script>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .frame {
+    width: 100%;
+    padding: var(--s-20);
+    border: 1px solid var(--border-soft);
+    background-color: var(--bg-weak);
+  }
+
+  .facade,
+  .player {
+    display: block;
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    border: 1px solid var(--border-soft);
+  }
+
+  .facade {
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    background-color: transparent;
+  }
+
+  .thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .facade:hover .thumbnail {
+    transform: scale(1.01);
+  }
+
+  .playIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: var(--s-64);
+    height: var(--s-64);
+    border-radius: var(--r-max);
+
+    color: var(--text-strong);
+
+    background-color: var(--bg-white);
+
+    transition: transform 0.3s ease;
+
+    @include media-min('sm') {
+      width: var(--s-100);
+      height: var(--s-100);
+    }
+  }
+
+  .facade:hover .playIcon {
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+  .playIcon :global(svg) {
+    width: var(--s-24);
+    height: var(--s-24);
+
+    @include media-min('sm') {
+      width: var(--s-32);
+      height: var(--s-32);
+    }
+  }
+</style>

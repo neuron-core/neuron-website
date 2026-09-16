@@ -1,0 +1,52 @@
+---
+import Typography from '~components/ui/Typography.astro';
+import YouTubeEmbed from '~components/ui/YouTubeEmbed.astro';
+---
+
+<div class="wrapper">
+  <div class="content">
+    <div class="leftCol">
+      <Typography tag="span" styling="paragraphM" font="pixel" color="agents">
+        FROM THE TEAM
+      </Typography>
+      <Typography tag="h2" styling="headingL">
+        Kickstart, in our own words
+      </Typography>
+      <Typography tag="p" styling="paragraphL" color="subtle">
+        A short video message on why we created Kickstart, and why we run every session ourselves.
+      </Typography>
+    </div>
+    <YouTubeEmbed videoId="8APWzYqt8KM" title="Neuron AI - Kickstart Session" />
+  </div>
+</div>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    width: 100%;
+    border-top: 1px solid var(--border-soft);
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-46);
+    align-items: center;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-64) 0;
+
+    @include media-min('lg') {
+      grid-template-columns: 1fr 1.6fr;
+      gap: var(--s-64);
+      padding: var(--s-100) 0;
+    }
+  }
+
+  .leftCol {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-20);
+  }
+</style>
