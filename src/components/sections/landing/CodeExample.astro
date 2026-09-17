@@ -32,7 +32,7 @@ class CustomerServiceAgent extends Agent
     }
 }
 
-// Use the agent in your application
+// Run the agent everywhere in your application
 $response = CustomerServiceAgent::make()
     ->chat(
         new UserMessage('Give me the daily average of sales in the last 30 days!')

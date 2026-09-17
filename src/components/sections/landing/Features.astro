@@ -15,43 +15,43 @@ const workflowsIcon = fs.readFileSync(
   'utf-8',
 );
 const ragIcon = fs.readFileSync(path.join(iconsDir, 'rag.svg'), 'utf-8');
-const monitoringIcon = fs.readFileSync(
-  path.join(iconsDir, 'monitoring.svg'),
+const toolkitsIcon = fs.readFileSync(
+  path.join(iconsDir, 'toolkits.svg'),
   'utf-8',
 );
 
 const cards = [
   {
-    title: 'AI Agents',
+    title: 'Agents',
     description:
-      'Build production-ready agentic loops. Swap LLMs like OpenAI, Claude, or Mistral with a single line of code - All with native skills and coding assistants support.',
+      'Build production-ready agentic loops. Swap LLMs like OpenAI, Claude, or Gemini with a single line of code - All with native skills and coding assistants support.',
     color: 'var(--bg-agents-base)',
     link: 'https://docs.neuron-ai.dev/agent/agent',
     icon: aiAgentsIcon,
   },
   {
-    title: 'Workflows',
+    title: 'Toolkits',
     description:
-      'Design complex, event-driven workflows with multiple agents. Manage state, handle loops, and implement "human-in-the-loop" logic directly in your PHP stack.',
-    color: 'var(--bg-workflows-base)',
-    link: 'https://docs.neuron-ai.dev/workflow/getting-started',
-    icon: workflowsIcon,
+      'Composable Agent capabilities. Go beyond generating text by facilitating interaction with your application data, services, or external APIs with a secure MCP connector.',
+    color: 'var(--bg-monitoring-base)',
+    link: 'https://docs.neuron-ai.dev/agent/tools',
+    icon: toolkitsIcon,
   },
   {
     title: 'RAG',
     description:
-      'A complete pipeline for your data. Connect PDFs, SQL, or docs to vector stores like Pinecone or Elasticsearch to give your agents real-world context.',
+      'Automated pipelines for your data. Export PDFs, SQL, or docs to vector stores like Pinecone or Elasticsearch to give your agents real-world context.',
     color: 'var(--bg-vector-base)',
     link: 'https://docs.neuron-ai.dev/rag/rag',
     icon: ragIcon,
   },
   {
-    title: 'Monitoring',
+    title: 'Workflows',
     description:
-      'No more "black box" AI. Powered by Inspector.dev, you get instant visibility into every agent\'s thought process, tool call, and RAG retrieval in production.',
-    color: 'var(--bg-monitoring-base)',
-    link: 'https://inspector.dev/',
-    icon: monitoringIcon,
+      'Design event-driven workflows with multiple steps. Manage state, handle loops, and implement "human-in-the-loop" logic natively in your PHP stack.',
+    color: 'var(--bg-workflows-base)',
+    link: 'https://docs.neuron-ai.dev/workflow/getting-started',
+    icon: workflowsIcon,
   },
 ];
 ---
@@ -59,7 +59,7 @@ const cards = [
 <div class="wrapper">
   <div class="content">
     <Typography tag="h2" styling="headingL">
-      A unified PHP layer for Agentic-Native apps
+      Easy to start, no ceiling to hit
     </Typography>
 
     <div class="cards">
