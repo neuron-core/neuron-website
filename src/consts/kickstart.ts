@@ -1,1 +1,1 @@
-export const KICKSTART_CALL_URL = 'https://cal.com/inspector/neuron-meeting';
+export const KICKSTART_CALL_URL = 'https://cal.com/inspector/neuron-ai-kickstart';
