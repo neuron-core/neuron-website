@@ -5,7 +5,7 @@ import Button from '~components/ui/Button.astro';
 import heroGrid from '~assets/hero-grid.svg';
 import { KICKSTART_CALL_URL } from '~consts/kickstart';
 
-const FACTS = ['ABOUT 90 MINUTES', 'LIVE', 'WITH THE PEOPLE WHO BUILT NEURON'];
+const FACTS = ['ABOUT 60 MINUTES', 'LIVE', 'WITH THE PEOPLE WHO BUILT NEURON'];
 ---
 
 <div class="wrapper">
@@ -20,7 +20,9 @@ const FACTS = ['ABOUT 90 MINUTES', 'LIVE', 'WITH THE PEOPLE WHO BUILT NEURON'];
         Start your team on Neuron, with the people who built it.
       </Typography>
       <Typography tag="p" styling="paragraphL" color="subtle" class="lede">
-        Bring a real project you want to build with Neuron. We get on a short call, and if it's a fit, we train your developers ourselves. On us. Your next application will be agentic, and we help your team get there fast.
+        Do you have a real project you want to build with Neuron?
+        We get on a short call, and if it's a fit, we help your developers get started.
+        Your next application will be agentic, and we help your team get there fast.
       </Typography>
       <div class="ctas">
         <Button href={KICKSTART_CALL_URL} text="Book your intro call" />
