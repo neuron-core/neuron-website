@@ -23,12 +23,13 @@ const {
   description,
   currentPage = 'home',
   canonical,
+  ogImage,
   ogType = 'website',
   ogUrl,
   twitterCard = 'summary_large_image',
 } = Astro.props;
 
-const defaultOgImageUrl = new URL('/og-image.png', Astro.site).href;
+const ogImageUrl = new URL(ogImage || '/og-image.png', Astro.site).href;
 const canonicalUrl = canonical || Astro.url.href;
 const ogUrlFinal = ogUrl || Astro.url.href;
 ---
@@ -48,13 +49,13 @@ const ogUrlFinal = ogUrl || Astro.url.href;
     <meta property="og:url" content={ogUrlFinal} />
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
-    <meta property="og:image" content={defaultOgImageUrl} />
+    <meta property="og:image" content={ogImageUrl} />
 
     <!-- Twitter/X Card meta tags -->
     <meta name="twitter:card" content={twitterCard} />
     <meta name="twitter:title" content={title} />
     {description && <meta name="twitter:description" content={description} />}
-    <meta name="twitter:image" content={defaultOgImageUrl} />
+    <meta name="twitter:image" content={ogImageUrl} />
 
     <link
       rel="icon"

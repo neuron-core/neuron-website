@@ -9,12 +9,14 @@ import KickstartSession from '~components/sections/kickstart/KickstartSession.as
 import KickstartCTA from '~components/sections/kickstart/KickstartCTA.astro';
 import PartnersGrid from '~components/sections/partners/PartnersGrid.astro';
 import SocialProof from '~components/sections/landing/SocialProof.astro';
+import kickstartImage from '~assets/images/kickstart.png';
 ---
 
 <MainLayout
   title="Kickstart — Neuron AI"
   description="Bring a real project you want to build with Neuron. We get on a short call, and if it's a fit, we train your developers ourselves. On us."
   currentPage="kickstart"
+  ogImage={kickstartImage.src}
 >
   <div class="kickstartContent">
     <KickstartHero />
