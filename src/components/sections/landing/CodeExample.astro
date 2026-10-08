@@ -10,17 +10,15 @@ class CustomerServiceAgent extends Agent
         // you can also use OpenAI, Gemini, XAI, AWS Bedrock, Azure, and others
         return new Anthropic(
             'ANTHROPIC_API_KEY',
-            'claude-4-5-sonnet'
+            'ANTHROPIC_MODEL'
         );
     }
 
-    public function instructions(): string
+    public function instructions(): SystemMessage
     {
-        return (string) new SystemPrompt(
-            background: [
-                'You are a helpful customer service assistant. ' .
-                'Provide clear, friendly, and accurate responses.'
-            ]
+        return new SystemMessage(
+            'You are a helpful customer service assistant. ' .
+            'Provide clear, friendly, and accurate responses.'
         );
     }
 
