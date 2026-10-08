@@ -2,7 +2,9 @@
 import { Code } from 'astro:components';
 import Typography from '~components/ui/Typography.astro';
 
-const code = `// Define the Agent once
+const code = `/*
+ * Define the Agent once
+ */
 class CustomerServiceAgent extends Agent
 {
     protected function provider(): AIProviderInterface
@@ -27,7 +29,9 @@ class CustomerServiceAgent extends Agent
     }
 }
 
-// Run the agent everywhere in your application
+/*
+ * Run the agent everywhere in your application
+ */
 $response = CustomerServiceAgent::make()
     ->chat(
         new UserMessage('Give me the daily average of sales in the last 30 days!')
