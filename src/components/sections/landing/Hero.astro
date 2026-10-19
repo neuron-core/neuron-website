@@ -1,8 +1,30 @@
 ---
+import fs from 'node:fs';
+import path from 'node:path';
 import Typography from '~components/ui/Typography.astro';
 import Button from '~components/ui/Button.astro';
 import { Image } from 'astro:assets';
 import heroGrid from '~assets/hero-grid.svg';
+
+const iconsDir = path.resolve('src/assets/icons');
+
+const socials = [
+  {
+    name: 'LinkedIn',
+    href: 'https://www.linkedin.com/company/106896704/',
+    icon: fs.readFileSync(path.join(iconsDir, 'linkedin.svg'), 'utf-8'),
+  },
+  {
+    name: 'Instagram',
+    href: 'https://www.instagram.com/neuronai_php_adk/',
+    icon: fs.readFileSync(path.join(iconsDir, 'instagram.svg'), 'utf-8'),
+  },
+  {
+    name: 'X',
+    href: 'https://x.com/neuronai_php',
+    icon: fs.readFileSync(path.join(iconsDir, 'x.svg'), 'utf-8'),
+  },
+];
 ---
 
 <div class="heroWrapper">
@@ -26,6 +48,27 @@ import heroGrid from '~assets/hero-grid.svg';
           variant="outline"
           text="Join github +2.1k stars"
         />
+      </div>
+
+      <div class="socialBox">
+        <Typography tag="span" styling="paragraphM" color="subtle">
+          Follow us on:
+        </Typography>
+
+        <div class="socialLinks">
+          {
+            socials.map((social) => (
+              <a
+                class="socialLink"
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.name}
+                set:html={social.icon}
+              />
+            ))
+          }
+        </div>
       </div>
     </div>
   </div>
@@ -84,6 +127,38 @@ import heroGrid from '~assets/hero-grid.svg';
   .buttons {
     display: flex;
     gap: var(--s-12);
+  }
+
+  .socialBox {
+    display: flex;
+    gap: var(--s-16);
+    align-items: center;
+    align-self: flex-start;
+
+    margin-top: var(--s-24);
+    padding: var(--s-12) var(--s-16);
+    border: 1px solid var(--border-soft);
+
+    background-color: var(--bg-weak);
+  }
+
+  .socialLinks {
+    display: flex;
+    gap: var(--s-12);
+  }
+
+  .socialLink {
+    display: flex;
+    color: var(--text-subtle);
+
+    &:hover {
+      color: var(--text-primary);
+    }
+
+    svg {
+      width: var(--s-20);
+      height: var(--s-20);
+    }
   }
 
   .leftSide {
