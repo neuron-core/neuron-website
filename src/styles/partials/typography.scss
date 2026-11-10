@@ -4,7 +4,7 @@
   font-style: normal;
 
   font-display: swap;
-  src: url('/fonts/Inter/Inter-Light.ttf') format('truetype');
+  src: url('~assets/fonts/Inter/Inter-Light.ttf') format('truetype');
 }
 
 @font-face {
@@ -13,7 +13,7 @@
   font-style: normal;
 
   font-display: swap;
-  src: url('/fonts/Inter/Inter-Regular.ttf') format('truetype');
+  src: url('~assets/fonts/Inter/Inter-Regular.ttf') format('truetype');
 }
 
 @font-face {
@@ -22,7 +22,7 @@
   font-style: normal;
 
   font-display: swap;
-  src: url('/fonts/GeistPixel/GeistPixel-Grid.ttf') format('truetype');
+  src: url('~assets/fonts/GeistPixel/GeistPixel-Grid.ttf') format('truetype');
 }
 
 @font-face {
@@ -31,7 +31,7 @@
   font-style: normal;
 
   font-display: swap;
-  src: url('/fonts/GeistPixel/GeistPixel-Square.ttf') format('truetype');
+  src: url('~assets/fonts/GeistPixel/GeistPixel-Square.ttf') format('truetype');
 }
 
 @font-face {
@@ -40,7 +40,7 @@
   font-style: normal;
 
   font-display: swap;
-  src: url('/fonts/GeistPixel/GeistPixel-Triangle.ttf') format('truetype');
+  src: url('~assets/fonts/GeistPixel/GeistPixel-Triangle.ttf') format('truetype');
 }
 
 h1,
