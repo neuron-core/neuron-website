@@ -17,19 +17,31 @@ const wordpressLogo = fs.readFileSync(
   path.join(iconsDir, 'wordpress-logo.svg'),
   'utf-8',
 );
+const drupalLogo = fs.readFileSync(
+  path.join(iconsDir, 'drupal-logo.svg'),
+  'utf-8',
+);
 
 const integrations = [
   { name: 'Laravel', logo: laravelLogo },
   { name: 'Symfony', logo: symfonyLogo },
   { name: 'WordPress', logo: wordpressLogo },
+  { name: 'Drupal', logo: drupalLogo },
 ];
 ---
 
 <div class="wrapper">
   <div class="content">
-    <Typography tag="h2" styling="headingM" class="title">
-      Perfectly Integrated<br />With Your Favorite Frameworks
-    </Typography>
+    <div class="textColumn">
+      <Typography tag="h2" styling="headingM">
+        Perfectly Integrated<br />With Your Favorite Frameworks
+      </Typography>
+      <Typography tag="p" color="subtle" styling="paragraphL">
+        Neuron is IoC container friendly by design. Register agents, tools and
+        providers as services and inject them wherever you need them, just like
+        any other component of a modern PHP application.
+      </Typography>
+    </div>
 
     <div class="logos">
       {
@@ -75,8 +87,11 @@ const integrations = [
     }
   }
 
-  .content :global(.title) {
+  .textColumn {
+    display: flex;
     flex: 1;
+    flex-direction: column;
+    gap: var(--s-16);
   }
 
   .logos {
@@ -86,7 +101,7 @@ const integrations = [
     width: 100%;
 
     @include media-min('sm') {
-      grid-template-columns: repeat(4, auto);
+      grid-template-columns: repeat(5, auto);
       gap: var(--s-16);
       width: auto;
     }
@@ -112,10 +127,12 @@ const integrations = [
   }
 
   .textBox {
+    grid-column: 1 / -1;
     aspect-ratio: unset;
     padding: var(--s-16) var(--s-24);
 
     @include media-min('sm') {
+      grid-column: auto;
       width: auto;
       min-width: 12rem;
     }

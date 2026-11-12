@@ -1,6 +1,6 @@
 # Neuron AI Framework Website
 
-This project contains a static website being generated with Astro - The web framework for content-driven websites.
+This project contains a static website generated with Astro about Neuron AI - The First Agentic Framework Of The PHP Ecosystem.
 
 ## Design Tokens - ALWAYS use predefined variables
 
@@ -74,6 +74,7 @@ Use camelCase for CSS class names, not kebab-case.
 ```
 
 ## Tech Stack
+
 - Astro with TypeScript
 - SCSS for styling (scoped `<style lang="scss">`)
 - Mobile-first responsive approach
