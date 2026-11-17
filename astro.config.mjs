@@ -7,7 +7,11 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.neuron-ai.dev',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) => !/\/(partners|become-a-partner)\/$/.test(page),
+    }),
+  ],
   vite: {
     resolve: {
       alias: {

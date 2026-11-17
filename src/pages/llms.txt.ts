@@ -1,20 +1,11 @@
 import type { APIRoute } from 'astro';
 
 import { KICKSTART_CALL_URL } from '~consts/kickstart';
-import { PARTNER_DATA } from '~consts/partnerData';
 
 // The llms.txt index for AI tools, in the format described at https://llmstxt.org.
 export const GET: APIRoute = ({ site }) => {
   const link = (name: string, href: string, note: string) =>
     `- [${name}](${new URL(href, site).href}): ${note}`;
-
-  const partners = PARTNER_DATA.map((partner) =>
-    link(
-      partner.name,
-      partner.website,
-      `${partner.description} Location: ${partner.location}. Contact: ${partner.email}.`,
-    ),
-  );
 
   const body = [
     '# Neuron AI',
@@ -91,20 +82,6 @@ export const GET: APIRoute = ({ site }) => {
       'https://cal.com/inspector/neuron-meeting',
       'Meet the framework creators for dedicated support on your project.',
     ),
-    link(
-      'Partners',
-      '/partners/',
-      'A vetted network of companies building real products on Neuron, with a direct line to the maintainers.',
-    ),
-    link(
-      'Become a partner',
-      '/become-a-partner/',
-      'Apply to the partner network for $300 a month, cancel anytime. Applications need a link to a live project, repository or application built with Neuron AI.',
-    ),
-    '',
-    '## Partners',
-    '',
-    ...partners,
     '',
     '## Ecosystem',
     '',
