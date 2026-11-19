@@ -1,0 +1,57 @@
+---
+import Typography from '~components/ui/Typography.astro';
+import LogoRow from '~components/sections/testimonials/LogoRow.astro';
+import spryker from '~assets/builtWithNeuron/spryker-logo-white.png';
+import kanvas from '~assets/builtWithNeuron/kanvas-logo-white.png';
+import caprionline from '~assets/builtWithNeuron/caprionline-logo-white.svg';
+
+const logos = [
+  { image: spryker, alt: 'Spryker', href: 'https://spryker.com/', height: 'var(--s-56)' },
+  { image: kanvas, alt: 'Kanvas', href: 'https://kanvas.dev/' },
+  { image: caprionline, alt: 'Caprionline', href: 'https://www.caprionline.it/' },
+];
+---
+
+<div class="wrapper">
+  <div class="content">
+    <div class="leftCol">
+      <Typography tag="h2" styling="headingL">Powering products</Typography>
+      <Typography tag="p" styling="paragraphL" color="subtle">
+        Products built with Neuron AI.
+      </Typography>
+    </div>
+
+    <LogoRow logos={logos} />
+  </div>
+</div>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    width: 100%;
+    border-top: 1px solid var(--border-soft);
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-46);
+    align-items: center;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-64) 0;
+
+    @include media-min('lg') {
+      grid-template-columns: 1fr 1.6fr;
+      gap: var(--s-64);
+      padding: var(--s-100) 0;
+    }
+  }
+
+  .leftCol {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-20);
+  }
+</style>

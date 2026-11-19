@@ -76,6 +76,11 @@ import { KICKSTART_CALL_URL } from '~consts/kickstart';
     display: flex;
     flex-direction: column;
     gap: var(--s-24);
+    padding: var(--s-32) 0;
+
+    @include media-min('lg') {
+      padding: var(--s-64) 0;
+    }
   }
 
   .inner :global(.title) {

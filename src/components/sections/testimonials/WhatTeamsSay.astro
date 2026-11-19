@@ -1,0 +1,119 @@
+---
+import Typography from '~components/ui/Typography.astro';
+import Button from '~components/ui/Button.astro';
+import YouTubeEmbed from '~components/ui/YouTubeEmbed.astro';
+import valanticLogo from '~assets/builtWithNeuron/valantic-logo-white.svg';
+---
+
+<div class="wrapper">
+  <div class="content">
+    <div class="leftCol">
+      <Typography tag="h2" styling="headingL">
+        Hear their experience building with Neuron
+      </Typography>
+      <Typography tag="p" styling="paragraphL" color="subtle">
+        Andreas Moser, Senior Backend Developer at valantic Austria, on the
+        Neuron Kickstart session: an onboarding where the people who built
+        Neuron train your developers to build agentic applications in PHP.
+      </Typography>
+      <div class="cta">
+        <Button href="/kickstart" text="Book your Kickstart session" />
+      </div>
+    </div>
+
+    <figure class="testimonial">
+      <YouTubeEmbed
+        videoId="QF3eR6Ju7VM"
+        title="Andreas Moser, valantic, on the Neuron Kickstart session"
+      />
+      <figcaption class="caption">
+        <img
+          class="captionLogo"
+          src={valanticLogo.src}
+          alt=""
+          width={valanticLogo.width}
+          height={valanticLogo.height}
+        />
+        <div class="captionText">
+          <Typography tag="p" styling="paragraphL">
+            Andreas Moser, Senior Backend Developer, valantic Austria
+          </Typography>
+          <Typography tag="p" styling="paragraphM" color="subtle">
+            After a Neuron Kickstart session with his team.
+          </Typography>
+        </div>
+      </figcaption>
+    </figure>
+  </div>
+</div>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    width: 100%;
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-46);
+    align-items: center;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-64) 0;
+
+    @include media-min('lg') {
+      grid-template-columns: 1fr 1.6fr;
+      gap: var(--s-64);
+      padding: var(--s-100) 0;
+    }
+  }
+
+  .leftCol {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-20);
+  }
+
+  .cta {
+    display: flex;
+    margin-top: var(--s-12);
+  }
+
+  .testimonial {
+    margin: 0;
+  }
+
+  .caption {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-16);
+    align-items: flex-start;
+    margin-top: var(--s-24);
+
+    @include media-min('sm') {
+      flex-direction: row;
+      gap: var(--s-24);
+      align-items: center;
+    }
+  }
+
+  .captionLogo {
+    flex-shrink: 0;
+    width: auto;
+    height: var(--s-20);
+
+    @include media-min('sm') {
+      box-sizing: content-box;
+      padding-right: var(--s-24);
+      border-right: 1px solid var(--border-soft);
+    }
+  }
+
+  .captionText {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-4);
+  }
+</style>

@@ -105,6 +105,11 @@ export const GET: APIRoute = ({ site }) => {
       'https://github.com/neuron-core/maestro',
       'A CLI agent built entirely in PHP with Neuron AI.',
     ),
+    link(
+      'Built with Neuron',
+      '/testimonials/',
+      'Teams and products running on Neuron AI: a valantic testimonial after a Kickstart session, products such as Spryker, Kanvas and Caprionline, the ai_neuron Drupal module and community projects.',
+    ),
     '',
     '## Optional',
     '',

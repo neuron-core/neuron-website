@@ -1,0 +1,105 @@
+---
+import { Image } from 'astro:assets';
+import Typography from '~components/ui/Typography.astro';
+import heroGrid from '~assets/hero-grid.svg';
+---
+
+<div class="wrapper">
+  <Image src={heroGrid} alt="" class="heroGrid" />
+
+  <div class="content">
+    <div class="inner">
+      <Typography tag="span" styling="paragraphM" font="pixel" color="agents">
+        NEURON AI / TESTIMONIALS
+      </Typography>
+      <Typography tag="h1" styling="headingXl">
+        Built with Neuron
+      </Typography>
+      <Typography tag="p" styling="paragraphL" color="subtle" class="lede">
+        Teams and products already running on Neuron. Hear what developers say
+        after a Kickstart session, and see the products and the Drupal
+        integration built on the framework.
+      </Typography>
+    </div>
+  </div>
+  <div class="stripe">
+    <div class="bar agents" />
+    <div class="bar workflows" />
+    <div class="bar vector" />
+    <div class="bar monitoring" />
+  </div>
+</div>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  .wrapper :global(.heroGrid) {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+    width: auto;
+    height: 100%;
+
+    @include media-min('lg') {
+      display: block;
+    }
+  }
+
+  .content {
+    position: relative;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-64) 0;
+
+    @include media-min('lg') {
+      padding: var(--s-100) 0 var(--s-64);
+    }
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-24);
+    padding: var(--s-32) 0;
+
+    @include media-min('lg') {
+      padding: var(--s-64) 0;
+    }
+  }
+
+  .inner :global(.lede) {
+    max-width: 640px;
+  }
+
+  .stripe {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    height: 8px;
+  }
+
+  .agents {
+    background: var(--bg-agents-base);
+  }
+
+  .workflows {
+    background: var(--bg-workflows-base);
+  }
+
+  .vector {
+    background: var(--bg-vector-base);
+  }
+
+  .monitoring {
+    background: var(--bg-monitoring-base);
+  }
+</style>

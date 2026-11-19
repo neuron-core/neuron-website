@@ -1,0 +1,321 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import Typography from '~components/ui/Typography.astro';
+import Button from '~components/ui/Button.astro';
+import neuronLogo from '~assets/icons/neuron-logo.svg';
+import nuvoleLogo from '~assets/builtWithNeuron/nuvole-logo-white.png';
+
+const iconsDir = path.resolve('src/assets/icons');
+const icon = (name: string) => fs.readFileSync(path.join(iconsDir, name), 'utf-8');
+
+const drupalDrop = icon('drupal-logo.svg');
+
+const capabilities = [
+  { label: 'Agents', icon: icon('ai-agent.svg'), tone: 'agents' },
+  { label: 'Tools', icon: icon('toolkits.svg'), tone: 'tools' },
+  { label: 'Workflows', icon: icon('workflows.svg'), tone: 'workflows' },
+];
+---
+
+<div class="wrapper">
+  <div class="content">
+    <div class="cardCol">
+      <div class="moduleCard">
+        <div class="cardHeader">
+          <span class="drop" aria-hidden="true" set:html={drupalDrop} />
+          <div class="cardTitle">
+            <span class="kicker">Drupal module</span>
+            <span class="name">ai_neuron</span>
+          </div>
+        </div>
+
+        <dl class="specs">
+          <div class="spec">
+            <dt>Brings</dt>
+            <dd>
+              <ul class="caps">
+                {
+                  capabilities.map((cap) => (
+                    <li class:list={['cap', cap.tone]}>
+                      <span class="capIcon" aria-hidden="true" set:html={cap.icon} />
+                      {cap.label}
+                    </li>
+                  ))
+                }
+              </ul>
+            </dd>
+          </div>
+          <div class="spec">
+            <dt>Built on</dt>
+            <dd>
+              <img
+                src={neuronLogo.src}
+                alt="Neuron"
+                width={neuronLogo.width}
+                height={neuronLogo.height}
+                class="neuronLogo"
+              />
+            </dd>
+          </div>
+          <div class="spec">
+            <dt>Built by</dt>
+            <dd class="builtBy">
+              Antonio De Marco
+              <a href="https://www.nuvole.org/" target="_blank" rel="noopener noreferrer">
+                <img
+                  src={nuvoleLogo.src}
+                  alt="Nuvole"
+                  width={nuvoleLogo.width}
+                  height={nuvoleLogo.height}
+                />
+              </a>
+            </dd>
+          </div>
+        </dl>
+
+        <a
+          class="cardLink"
+          href="https://www.drupal.org/project/ai_neuron"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          drupal.org/project/ai_neuron
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="textCol">
+      <Typography tag="h2" styling="headingL">In the Drupal ecosystem</Typography>
+      <Typography tag="p" styling="paragraphL">
+        ai_neuron brings Neuron agents, tools and workflows into Drupal.
+      </Typography>
+      <Typography tag="p" styling="paragraphL" color="subtle">
+        Built by Antonio De Marco (Nuvole), supported by the European Commission.
+      </Typography>
+      <div class="ctas">
+        <Button
+          href="https://www.drupal.org/project/ai_neuron"
+          text="See the module on drupal.org"
+        />
+        <Button
+          href="https://nuvole.org/blog/2026/oct/21/bridging-drupal-and-neuron-ai/"
+          text="Read how ai_neuron works"
+          variant="outline"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    width: 100%;
+    border-top: 1px solid var(--border-soft);
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-46);
+    align-items: center;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-64) 0;
+
+    @include media-min('lg') {
+      grid-template-columns: 1.1fr 1fr;
+      gap: var(--s-100);
+      padding: var(--s-100) 0;
+    }
+  }
+
+  // Title first on mobile, card first on desktop
+  .textCol {
+    display: flex;
+    flex-direction: column;
+    order: -1;
+    gap: var(--s-20);
+
+    @include media-min('lg') {
+      order: 0;
+    }
+  }
+
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-12);
+    margin-top: var(--s-12);
+  }
+
+  // Tinted layer offset behind the card
+  .cardCol {
+    position: relative;
+    padding: 0 var(--s-20) var(--s-20) 0;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: var(--s-20);
+      right: 0;
+      bottom: 0;
+      left: var(--s-20);
+      background-color: var(--bg-workflows-light);
+    }
+  }
+
+  .moduleCard {
+    position: relative;
+    border: 1px solid var(--border-soft);
+    background-color: var(--bg-weak);
+  }
+
+  .cardHeader {
+    display: flex;
+    gap: var(--s-20);
+    align-items: center;
+    padding: var(--s-24);
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  .drop {
+    flex-shrink: 0;
+    width: var(--s-56);
+    height: var(--s-56);
+
+    :global(svg) {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .cardTitle {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-6);
+  }
+
+  .kicker,
+  dt {
+    font-family: GeistPixel, sans-serif;
+    font-size: 1.2rem;
+    color: var(--text-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .name {
+    font-family: GeistPixel, sans-serif;
+    font-size: 3.6rem;
+    line-height: 1;
+    color: var(--text-primary);
+  }
+
+  .specs {
+    margin: 0;
+  }
+
+  .spec {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-10);
+    padding: var(--s-20) var(--s-24);
+    border-bottom: 1px solid var(--border-soft);
+
+    @include media-min('sm') {
+      flex-direction: row;
+      gap: var(--s-24);
+      align-items: center;
+    }
+  }
+
+  dt {
+    flex-shrink: 0;
+    width: var(--s-100);
+  }
+
+  dd {
+    margin: 0;
+    font-size: 1.6rem;
+    color: var(--text-primary);
+  }
+
+  .caps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .cap {
+    display: inline-flex;
+    gap: var(--s-6);
+    align-items: center;
+    padding: var(--s-4) var(--s-8);
+    font-family: GeistPixel, sans-serif;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+  }
+
+  .agents {
+    color: var(--text-agents);
+    background-color: var(--bg-agents-light);
+  }
+
+  .tools {
+    color: var(--text-monitoring);
+    background-color: var(--bg-monitoring-light);
+  }
+
+  .workflows {
+    color: var(--text-workflows);
+    background-color: var(--bg-workflows-light);
+  }
+
+  .capIcon :global(svg) {
+    display: block;
+    width: var(--s-12);
+    height: var(--s-12);
+  }
+
+  .neuronLogo {
+    display: block;
+    width: auto;
+    height: var(--s-24);
+  }
+
+  .builtBy {
+    display: flex;
+    gap: var(--s-12);
+    align-items: center;
+
+    img {
+      display: block;
+      width: auto;
+      height: var(--s-16);
+    }
+  }
+
+  .cardLink {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--s-20) var(--s-24);
+    font-family: GeistPixel, sans-serif;
+    font-size: 1.4rem;
+    color: var(--text-workflows);
+    text-decoration: none;
+    transition: background-color 0.25s ease;
+
+    &:hover {
+      background-color: var(--bg-soft);
+    }
+  }
+</style>

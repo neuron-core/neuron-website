@@ -1,0 +1,48 @@
+---
+import MainLayout from '~components/layouts/MainLayout.astro';
+import TestimonialsHero from '~components/sections/testimonials/TestimonialsHero.astro';
+import WhatTeamsSay from '~components/sections/testimonials/WhatTeamsSay.astro';
+import PoweringProducts from '~components/sections/testimonials/PoweringProducts.astro';
+import DrupalEcosystem from '~components/sections/testimonials/DrupalEcosystem.astro';
+import CommunityProjects from '~components/sections/testimonials/CommunityProjects.astro';
+---
+
+<MainLayout
+  title="Built with Neuron — Neuron AI"
+  description="Teams and products already running on Neuron AI."
+  currentPage="testimonials"
+>
+  <div class="testimonialsContent">
+    <TestimonialsHero />
+    <WhatTeamsSay />
+    <PoweringProducts />
+    <DrupalEcosystem />
+    <div class="communitySection">
+      <CommunityProjects />
+    </div>
+  </div>
+</MainLayout>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .testimonialsContent {
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 0;
+
+    & > :global(*) {
+      padding: 0 var(--s-24);
+    }
+
+    @media (width >= 1800px) {
+      border-right: 1px solid var(--border-soft);
+      border-left: 1px solid var(--border-soft);
+    }
+  }
+
+  .communitySection {
+    border-top: 1px solid var(--border-soft);
+  }
+</style>

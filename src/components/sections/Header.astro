@@ -6,7 +6,7 @@ import neuronLogo from '~assets/icons/neuron-logo.svg';
 import { LANDING_SECTIONS } from '~consts/landingSections';
 
 interface Props {
-  currentPage?: 'home' | 'partners' | 'kickstart';
+  currentPage?: 'home' | 'partners' | 'kickstart' | 'testimonials';
 }
 
 const { currentPage = 'home' } = Astro.props as Props;
@@ -17,10 +17,6 @@ const links = [
     href: `/#${LANDING_SECTIONS.CODE}`,
   },
   {
-    text: 'Use Cases',
-    href: `/#${LANDING_SECTIONS.USE_CASES}`,
-  },
-  {
     text: 'Book',
     href: `/#${LANDING_SECTIONS.BOOK}`,
   },
@@ -29,6 +25,7 @@ const links = [
 const pageLinks = [
   { text: 'Home', href: '/', page: 'home' as const },
   { text: 'Kickstart', href: '/kickstart', page: 'kickstart' as const },
+  { text: 'Testimonials', href: '/testimonials', page: 'testimonials' as const },
 ];
 ---
 
@@ -78,6 +75,9 @@ const pageLinks = [
   <div class="mobileNav">
     <a href="/kickstart" class:list={[{ active: currentPage === 'kickstart' }]}>
       <Typography styling="paragraphM" tag="span">Kickstart</Typography>
+    </a>
+    <a href="/testimonials" class:list={[{ active: currentPage === 'testimonials' }]}>
+      <Typography styling="paragraphM" tag="span">Testimonials</Typography>
     </a>
   </div>
 </header>

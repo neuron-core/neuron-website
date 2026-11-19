@@ -2,10 +2,9 @@
 import MainLayout from '~components/layouts/MainLayout.astro';
 import Book from '~components/sections/landing/Book.astro';
 import BuildToScaleInProduction from '~components/sections/landing/BuildToScaleInProduction.astro';
+import BuiltWithNeuron from '~components/sections/landing/BuiltWithNeuron.astro';
 import CodeExample from '~components/sections/landing/CodeExample.astro';
-import CommunityProjects from '~components/sections/landing/CommunityProjects.astro';
 import DeveloperExperience from '~components/sections/landing/DeveloperExperience.astro';
-import ExpertSupport from '~components/sections/landing/ExpertSupport.astro';
 import Features from '~components/sections/landing/Features.astro';
 import Hero from '~components/sections/landing/Hero.astro';
 import Integrations from '~components/sections/landing/Integrations.astro';
@@ -34,10 +33,7 @@ import { LANDING_SECTIONS } from '~consts/landingSections';
     <section id={LANDING_SECTIONS.VIDEO_TUTORIALS}>
       <VideoTutorials />
     </section>
-    <section id={LANDING_SECTIONS.USE_CASES}>
-      <CommunityProjects />
-    </section>
-    <ExpertSupport />
+    <BuiltWithNeuron />
     <section id={LANDING_SECTIONS.BOOK}>
       <Book />
     </section>
