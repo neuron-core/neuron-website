@@ -5,7 +5,6 @@ import Button from '~components/ui/Button.astro';
 import heroGrid from '~assets/hero-grid.svg';
 import { KICKSTART_CALL_URL } from '~consts/kickstart';
 
-const FACTS = ['ABOUT 60 MINUTES', 'LIVE', 'WITH THE PEOPLE WHO BUILT NEURON'];
 ---
 
 <div class="wrapper">
@@ -28,15 +27,6 @@ const FACTS = ['ABOUT 60 MINUTES', 'LIVE', 'WITH THE PEOPLE WHO BUILT NEURON'];
         <Button href={KICKSTART_CALL_URL} text="Book your intro call" />
         <Button href="#inside-the-session" text="See what we cover" variant="outline" />
       </div>
-      <ul class="facts">
-        {FACTS.map((fact) => (
-          <li class="fact">
-            <Typography tag="span" styling="bodyM" font="pixel" color="subtle">
-              {fact}
-            </Typography>
-          </li>
-        ))}
-      </ul>
     </div>
   </div>
 
