@@ -7,8 +7,7 @@ import KickstartSteps from '~components/sections/kickstart/KickstartSteps.astro'
 import KickstartWhy from '~components/sections/kickstart/KickstartWhy.astro';
 import KickstartSession from '~components/sections/kickstart/KickstartSession.astro';
 import KickstartTestimonial from '~components/sections/kickstart/KickstartTestimonial.astro';
-import KickstartCTA from '~components/sections/kickstart/KickstartCTA.astro';
-import PartnersGrid from '~components/sections/partners/PartnersGrid.astro';
+import NeuronIQCTA from '~components/sections/NeuronIQCTA.astro';
 import SocialProof from '~components/sections/landing/SocialProof.astro';
 import kickstartImage from '~assets/images/kickstart.png';
 ---
@@ -28,10 +27,7 @@ import kickstartImage from '~assets/images/kickstart.png';
     <KickstartWhy />
     <KickstartSession />
     <KickstartTestimonial />
-    <div class="partnersSection">
-      <PartnersGrid title="Partners" />
-    </div>
-    <KickstartCTA />
+    <NeuronIQCTA />
   </div>
 </MainLayout>
 
@@ -52,9 +48,5 @@ import kickstartImage from '~assets/images/kickstart.png';
       border-right: 1px solid var(--border-soft);
       border-left: 1px solid var(--border-soft);
     }
-  }
-
-  .partnersSection {
-    border-top: 1px solid var(--border-soft);
   }
 </style>
