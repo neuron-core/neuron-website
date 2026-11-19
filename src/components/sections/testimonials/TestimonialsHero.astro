@@ -1,29 +1,8 @@
 ---
-import fs from 'node:fs';
-import path from 'node:path';
 import { Image } from 'astro:assets';
 import Typography from '~components/ui/Typography.astro';
+import SocialLinks from '~components/ui/SocialLinks.astro';
 import heroGrid from '~assets/hero-grid.svg';
-
-const iconsDir = path.resolve('src/assets/icons');
-
-const socials = [
-  {
-    name: 'LinkedIn',
-    href: 'https://www.linkedin.com/company/106896704/',
-    icon: fs.readFileSync(path.join(iconsDir, 'linkedin.svg'), 'utf-8'),
-  },
-  {
-    name: 'Instagram',
-    href: 'https://www.instagram.com/neuronai_php_adk/',
-    icon: fs.readFileSync(path.join(iconsDir, 'instagram.svg'), 'utf-8'),
-  },
-  {
-    name: 'X',
-    href: 'https://x.com/neuronai_php',
-    icon: fs.readFileSync(path.join(iconsDir, 'x.svg'), 'utf-8'),
-  },
-];
 ---
 
 <div class="wrapper">
@@ -43,26 +22,7 @@ const socials = [
         integration built on the framework.
       </Typography>
 
-      <div class="socials">
-        <Typography tag="span" styling="paragraphM" color="subtle">
-          Follow us on:
-        </Typography>
-
-        <div class="socialLinks">
-          {
-            socials.map((social) => (
-              <a
-                class="socialLink"
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={social.name}
-                set:html={social.icon}
-              />
-            ))
-          }
-        </div>
-      </div>
+      <SocialLinks />
     </div>
   </div>
   <div class="stripe">
@@ -121,31 +81,6 @@ const socials = [
 
   .inner :global(.lede) {
     max-width: 640px;
-  }
-
-  .socials {
-    display: flex;
-    gap: var(--s-16);
-    align-items: center;
-  }
-
-  .socialLinks {
-    display: flex;
-    gap: var(--s-12);
-  }
-
-  .socialLink {
-    display: flex;
-    color: var(--text-subtle);
-
-    &:hover {
-      color: var(--text-primary);
-    }
-
-    :global(svg) {
-      width: var(--s-20);
-      height: var(--s-20);
-    }
   }
 
   .stripe {
