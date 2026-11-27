@@ -33,7 +33,7 @@ foreach ($stream as $chunk) {
 
 In a terminal, this works beautifully. The problems begin when there's a browser on the other side.
 
-## Why you can't just stream from a PHP controller
+## Why you can't just stream from a controller
 
 The first idea everyone has is to keep the HTTP request open and write the chunks into the response as they arrive. For a short answer that's fine, and Neuron supports it out of the box. But agents are rarely short. An agent that calls a few tools, waits on slow APIs, and writes a long report can easily run for minutes. Along the way it runs into PHP's `max_execution_time`, the 60 second default timeout of Nginx when it works as a reverse proxy, and whatever limit your load balancer applies to long connections. Any of them can cut the answer in half without telling anyone.
 
