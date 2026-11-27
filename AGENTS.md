@@ -79,6 +79,12 @@ Use camelCase for CSS class names, not kebab-case.
 - SCSS for styling (scoped `<style lang="scss">`)
 - Mobile-first responsive approach
 
+## Blog
+
+- Posts are Markdown files in `src/content/blog/posts/` (the file name is the URL slug), images in `src/content/blog/images/<slug>/`. The schema is in `src/content.config.ts`, and `README.md` explains how to write a post.
+- Code in posts is highlighted with highlight.js (`rehype-highlight` on the `unified()` Markdown processor in `astro.config.mjs`), not Shiki. The theme CSS is imported in `src/pages/blog/[slug].astro`.
+- The sidebar cards are in `src/components/sections/blog/BlogSidebar.astro`.
+
 ## Think Before Coding
 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**

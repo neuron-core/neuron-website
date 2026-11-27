@@ -1,0 +1,190 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import BlogLayout from '~components/layouts/BlogLayout.astro';
+import Typography from '~components/ui/Typography.astro';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = (await getCollection('blog')).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+  );
+
+  return paginate(posts, { pageSize: 10 });
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { page } = Astro.props;
+
+const pageUrl = (n: number) => (n === 1 ? '/blog' : `/blog/${n}`);
+const pageNumbers = Array.from({ length: page.lastPage }, (_, i) => i + 1);
+---
+
+<BlogLayout
+  title={page.currentPage === 1
+    ? 'Blog — Neuron AI'
+    : `Blog, page ${page.currentPage} — Neuron AI`}
+  description="Tutorials, release notes and stories about building agentic applications in PHP with Neuron AI."
+>
+  <div class="intro">
+    <Typography tag="span" styling="paragraphM" font="pixel" color="agents">
+      NEURON AI / BLOG
+    </Typography>
+    <Typography tag="h1" styling="headingXl">Blog</Typography>
+    <Typography tag="p" styling="paragraphL" color="subtle">
+      Tutorials, release notes and stories about building agentic applications
+      in PHP with Neuron AI.
+    </Typography>
+  </div>
+
+  <div class="grid">
+    {
+      page.data.map((post) => (
+        <a href={`/blog/${post.id}/`} class="card">
+          <Image
+            src={post.data.featured_image}
+            alt=""
+            widths={[480, 960]}
+            sizes="(min-width: 1200px) 452px, (min-width: 768px) 50vw, 100vw"
+            class="thumbnail"
+          />
+          <div class="cardBody">
+            <Typography tag="span" styling="paragraphS" color="soft">
+              <time datetime={post.data.date.toISOString()}>
+                {post.data.date.toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                  timeZone: 'UTC',
+                })}
+              </time>
+            </Typography>
+            <Typography tag="h2" styling="headingXs">
+              {post.data.title}
+            </Typography>
+            <Typography tag="p" styling="paragraphS" color="subtle">
+              {post.data.description}
+            </Typography>
+          </div>
+        </a>
+      ))
+    }
+  </div>
+
+  {
+    page.lastPage > 1 && (
+      <nav class="pagination" aria-label="Blog pages">
+        {page.url.prev && (
+          <a href={page.url.prev} class="pageLink">
+            ← Newer
+          </a>
+        )}
+        {pageNumbers.map((n) => (
+          <a
+            href={pageUrl(n)}
+            class:list={['pageLink', { active: n === page.currentPage }]}
+            aria-current={n === page.currentPage ? 'page' : undefined}
+          >
+            {n}
+          </a>
+        ))}
+        {page.url.next && (
+          <a href={page.url.next} class="pageLink">
+            Older →
+          </a>
+        )}
+      </nav>
+    )
+  }
+</BlogLayout>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-16);
+    margin-bottom: var(--s-46);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-24);
+
+    @include media-min('sm') {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid var(--border-soft);
+
+    text-decoration: none;
+
+    background-color: var(--bg-weak);
+
+    transition: border-color 0.2s ease;
+
+    &:hover {
+      border-color: var(--border-subtle);
+    }
+  }
+
+  .card :global(.thumbnail) {
+    display: block;
+
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid var(--border-soft);
+
+    object-fit: cover;
+  }
+
+  .cardBody {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-8);
+    padding: var(--s-24);
+  }
+
+  .pagination {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-8);
+    margin-top: var(--s-46);
+  }
+
+  .pageLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: var(--s-40);
+    height: var(--s-40);
+    padding: 0 var(--s-12);
+    border: 1px solid var(--border-soft);
+
+    font-family: GeistPixel, sans-serif;
+    font-size: 1.4rem;
+    color: var(--text-subtle);
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--text-primary);
+    }
+
+    &.active {
+      color: var(--text-strong);
+      background-color: var(--bg-white);
+    }
+  }
+</style>

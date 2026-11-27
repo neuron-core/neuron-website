@@ -1,0 +1,61 @@
+---
+import MainLayout from '~components/layouts/MainLayout.astro';
+import BlogSidebar from '~components/sections/blog/BlogSidebar.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  ogType?: string;
+}
+
+const { title, description, ogImage, ogType } = Astro.props;
+---
+
+<MainLayout
+  title={title}
+  description={description}
+  currentPage="blog"
+  ogImage={ogImage}
+  ogType={ogType}
+>
+  <div class="wrapper">
+    <main class="blogContent">
+      <slot name="header" />
+      <div class="columns">
+        <div>
+          <slot />
+        </div>
+        <BlogSidebar />
+      </div>
+    </main>
+  </div>
+</MainLayout>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    width: 100%;
+  }
+
+  .blogContent {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-64) 0;
+
+    @include media-min('lg') {
+      padding: var(--s-100) 0;
+    }
+  }
+
+  .columns {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-64);
+
+    @include media-min('lg') {
+      grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+    }
+  }
+</style>

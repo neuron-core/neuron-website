@@ -1,11 +1,16 @@
 import type { APIRoute } from 'astro';
+import { getCollection } from 'astro:content';
 
 import { KICKSTART_CALL_URL } from '~consts/kickstart';
 
 // The llms.txt index for AI tools, in the format described at https://llmstxt.org.
-export const GET: APIRoute = ({ site }) => {
+export const GET: APIRoute = async ({ site }) => {
   const link = (name: string, href: string, note: string) =>
     `- [${name}](${new URL(href, site).href}): ${note}`;
+
+  const posts = (await getCollection('blog')).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+  );
 
   const body = [
     '# Neuron AI',
@@ -111,6 +116,17 @@ export const GET: APIRoute = ({ site }) => {
       'Teams and products running on Neuron AI: a valantic testimonial after a Kickstart session, products such as Spryker, Kanvas and Caprionline, the ai_neuron Drupal module and community projects.',
     ),
     '',
+    '## Blog',
+    '',
+    link(
+      'Blog',
+      '/blog/',
+      'Tutorials, release notes and stories about building agentic applications in PHP with Neuron AI.',
+    ),
+    ...posts.map((post) =>
+      link(post.data.title, `/blog/${post.id}/`, post.data.description),
+    ),
+    '',
     '## Optional',
     '',
     link(
@@ -137,16 +153,6 @@ export const GET: APIRoute = ({ site }) => {
       'Deep Research Agent',
       'https://github.com/neuron-core/deep-research-agent',
       'Generates research reports on any topic with large language models.',
-    ),
-    link(
-      'How to create a RAG agent with Neuron',
-      'https://inspector.dev/how-to-create-a-rag-agent-with-neuron-adk-for-php/',
-      'Tutorial: Retrieval-Augmented Generation with Ollama or cloud providers.',
-    ),
-    link(
-      'Building multi-agent systems in Laravel',
-      'https://inspector.dev/building-multi-agent-systems-in-laravel-a-practical-demo/',
-      'Tutorial: a multi-agent travel planner with orchestration and state management.',
     ),
     '',
   ].join('\n');

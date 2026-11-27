@@ -1,0 +1,185 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import BlogLayout from '~components/layouts/BlogLayout.astro';
+import Typography from '~components/ui/Typography.astro';
+import 'highlight.js/styles/github-dark.css';
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection('blog');
+
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BlogLayout
+  title={`${post.data.title} — Neuron AI`}
+  description={post.data.description}
+  ogImage={post.data.featured_image.src}
+  ogType="article"
+>
+  <header slot="header" class="articleHeader">
+    <div class="titleBlock">
+      <a href="/blog" class="backLink">
+        <Typography tag="span" styling="paragraphS" font="pixel" color="subtle">
+          ← BLOG
+        </Typography>
+      </a>
+      <Typography tag="h1" styling="headingL">{post.data.title}</Typography>
+      <Typography tag="p" styling="paragraphM" color="soft">
+        <time datetime={post.data.date.toISOString()}>
+          {post.data.date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            timeZone: 'UTC',
+          })}
+        </time>{` · ${post.data.author}`}
+      </Typography>
+    </div>
+
+    <Image
+      src={post.data.featured_image}
+      alt={post.data.title}
+      widths={[800, 1300, 2600]}
+      sizes="(min-width: 1348px) 1300px, 100vw"
+      class="featuredImage"
+      loading="eager"
+    />
+  </header>
+
+  <article class="prose">
+    <Content />
+  </article>
+</BlogLayout>
+
+<style lang="scss">
+  .articleHeader {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-32);
+    margin-bottom: var(--s-46);
+  }
+
+  .titleBlock {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-16);
+  }
+
+  .backLink {
+    text-decoration: none;
+  }
+
+  .articleHeader :global(.featuredImage) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border-soft);
+  }
+
+  .prose {
+    font-size: 1.8rem;
+    line-height: 1.7;
+    color: var(--text-weak);
+
+    :global(h2),
+    :global(h3),
+    :global(h4) {
+      margin: var(--s-46) 0 var(--s-16);
+      color: var(--text-primary);
+    }
+
+    :global(h2) {
+      font-size: 2.8rem;
+      line-height: 1.3;
+    }
+
+    :global(h3) {
+      font-size: 2.2rem;
+      line-height: 1.3;
+    }
+
+    :global(h4) {
+      font-size: 1.8rem;
+    }
+
+    :global(p),
+    :global(ul),
+    :global(ol) {
+      margin: 0 0 var(--s-24);
+      font-size: inherit;
+      font-weight: 400;
+      line-height: inherit;
+    }
+
+    :global(ul),
+    :global(ol) {
+      padding-left: var(--s-24);
+    }
+
+    :global(li) {
+      margin-bottom: var(--s-8);
+    }
+
+    :global(strong) {
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    :global(a) {
+      color: var(--text-primary);
+      text-decoration: underline;
+      text-decoration-color: var(--border-subtle);
+      text-underline-offset: var(--s-4);
+
+      &:hover {
+        text-decoration-color: var(--text-primary);
+      }
+    }
+
+    :global(img) {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid var(--border-soft);
+    }
+
+    :global(hr) {
+      margin: var(--s-46) 0;
+      border: none;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    :global(code) {
+      padding: var(--s-2) var(--s-6);
+      font-size: 0.85em;
+      color: var(--text-primary);
+      background-color: var(--bg-soft);
+    }
+
+    :global(pre) {
+      overflow-x: auto;
+
+      margin: 0 0 var(--s-24);
+      padding: var(--s-20);
+      border: 1px solid var(--border-soft);
+
+      line-height: 1.6;
+
+      background-color: var(--bg-weak);
+    }
+
+    :global(pre code),
+    :global(pre code.hljs) {
+      padding: 0;
+      font-size: 1.4rem;
+      background: transparent;
+    }
+  }
+</style>

@@ -1,0 +1,155 @@
+---
+import { Image } from 'astro:assets';
+import Typography from '~components/ui/Typography.astro';
+import Button from '~components/ui/Button.astro';
+import bookCover from '~assets/images/book.png';
+import kickstartImage from '~assets/images/kickstart.png';
+import iqStreamLogo from '~assets/icons/iq-stream-logo-white.svg';
+---
+
+<aside class="sidebar">
+  <div class="card">
+    <div class="bookCover">
+      <Image src={bookCover} alt="Start with AI Agents in PHP - book cover" width={320} />
+    </div>
+    <div class="cardBody">
+      <Typography tag="span" styling="paragraphS" font="pixel" color="subtle">
+        THE BOOK
+      </Typography>
+      <Typography tag="h3" styling="headingXs">
+        Start with AI Agents in PHP
+      </Typography>
+      <Typography tag="p" styling="paragraphM" color="soft">
+        The ultimate guide to building AI-powered agents with PHP, with
+        practical examples and real-world use cases.
+      </Typography>
+      <Typography tag="span" styling="headingXs" font="pixel">$8.90</Typography>
+      <div class="buttons">
+        <Button
+          href="https://www.amazon.com/dp/B0F1YX8KJB"
+          text="Buy on Amazon"
+          size="medium"
+        />
+        <Button
+          href="https://play.google.com/store/books/details?pcampaignid=books_read_action&id=agJPEQAAQBAJ&pli=1"
+          text="Google Play"
+          size="medium"
+          variant="outline"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <Image
+      src={kickstartImage}
+      alt="Neuron AI Kickstart"
+      width={640}
+      class="cardImage"
+    />
+    <div class="cardBody">
+      <Typography tag="span" styling="paragraphS" font="pixel" color="agents">
+        KICKSTART
+      </Typography>
+      <Typography tag="h3" styling="headingXs">
+        Start your team on Neuron, with the people who built it.
+      </Typography>
+      <Typography tag="p" styling="paragraphM" color="soft">
+        Have a real project to build with Neuron? We get on a short call, and
+        if it's a fit, we help your developers get started.
+      </Typography>
+      <div class="buttons">
+        <Button href="/kickstart" text="Discover Kickstart" size="medium" />
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="cardBody">
+      <div class="brand">
+        <Image src={iqStreamLogo} alt="" class="brandLogo" />
+        <Typography tag="span" styling="paragraphS" font="pixel" color="subtle">
+          IQ-STREAM
+        </Typography>
+      </div>
+      <Typography tag="h3" styling="headingXs">
+        Save 2/3 on your streaming costs
+      </Typography>
+      <Typography tag="p" styling="paragraphM" color="soft">
+        A streaming server built for one job: carrying the tokens of an LLM
+        answer from your application backend to your users' browsers, in real
+        time.
+      </Typography>
+      <div class="buttons">
+        <Button href="https://iq-stream.dev" text="Discover IQ-Stream" size="medium" />
+      </div>
+    </div>
+  </div>
+</aside>
+
+<style lang="scss">
+  @use '~styles/mixins/media' as *;
+
+  .sidebar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+    gap: var(--s-24);
+    align-content: start;
+    align-items: start;
+
+    @include media-min('lg') {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .card {
+    overflow: hidden;
+    border: 1px solid var(--border-soft);
+    background-color: var(--bg-weak);
+  }
+
+  .bookCover {
+    display: flex;
+    justify-content: center;
+    padding: var(--s-24);
+    border-bottom: 1px solid var(--border-soft);
+
+    img {
+      width: 50%;
+      height: auto;
+      border: 1px solid var(--border-soft);
+    }
+  }
+
+  .card :global(.cardImage) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  .cardBody {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-12);
+    padding: var(--s-24);
+  }
+
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-8);
+    margin-top: var(--s-8);
+  }
+
+  .brand {
+    display: flex;
+    gap: var(--s-12);
+    align-items: center;
+  }
+
+  .brand :global(.brandLogo) {
+    width: auto;
+    height: var(--s-20);
+  }
+</style>
