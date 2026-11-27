@@ -165,6 +165,74 @@ A few details seem minor until you run this in production. IQ-Stream sends regul
 
 For Neuron users there's one more point. Since IQ-Stream doesn't interpret your events, the output of the AG-UI and Vercel AI adapters you already use in Neuron can travel through it exactly as it is.
 
+## Built-in support in Neuron AI
+
+If you use Neuron, you don't have to write the publishing code yourself. Neuron AI has a built-in `IQStreamChannel`, a streaming channel like the Pusher one I showed you earlier, that forwards the agent's events to IQ-Stream. It relies on the official PHP client, so install that first:
+
+```bash
+composer require neuron-core/iq-stream-php
+```
+
+The client reads the server address and your app's credentials from the `IQ_STREAM_URL`, `IQ_STREAM_APP_KEY`, and `IQ_STREAM_APP_SECRET` environment variables. In the request that starts the chat, you create a ticket for a new stream, start the agent in a background job with the stream's id, and return the ticket to the browser:
+
+```php
+use IQStream\IQClient;
+
+$iq = IQClient::fromEnvironment();
+
+// A new stream, and the ticket the browser subscribes with
+$ticket = $iq->ticket();
+
+// The background job that runs the agent and publishes to the stream
+dispatch(new RunAgentJob($threadId, $message, $ticket->streamId->value));
+
+// Return the ticket for the browser to connect
+return $ticket;
+```
+
+Inside the job, with the client resolved from your container, you attach a stream adapter and the IQ-Stream channel to the agent, and run it in streaming mode:
+
+```php
+use App\Neuron\MyAgent;
+use IQStream\IQClient;
+use NeuronAI\Agent\Adapters\AGUIAdapter;
+use NeuronAI\Chat\Messages\UserMessage;
+use NeuronAI\Workflow\Streaming\Channel\IQStreamChannel;
+
+class RunAgentJob
+{
+    public function __construct(
+        protected string $threadId,
+        protected string $message,
+        protected string $streamId,
+    ) {}
+
+    public function handle(IQClient $iq): void
+    {
+        MyAgent::make()
+            ->setThreadId($this->threadId)
+            ->setStreamAdapter(fn () => new AGUIAdapter($this->threadId))
+            ->setChannel(fn () => new IQStreamChannel($iq, $this->streamId))
+            ->chat(new UserMessage($this->message), stream: true);
+    }
+}
+```
+
+Compare it with the `PusherChannel` configuration above: the channel takes only the client and the stream id, with no request size or batch size to set. It keeps a single request open for the whole answer, continues on a new one if the server closes it while a slow tool runs, and resends whatever a dropped connection didn't deliver. I used the AG-UI adapter here, but any Neuron stream adapter works the same way.
+
+In the browser, pass the ticket's URL to `subscribeToIQ`, from the same `@neuron-core/streaming` package, which unwraps Neuron's envelopes and gives you the agent's events:
+
+```typescript
+import { subscribeToIQ } from '@neuron-core/streaming';
+
+const subscription = subscribeToIQ(ticket.url, {
+  onEvent: ({ type, data }) => renderEvent(type, data),
+  onGap: reason => reloadConversation(reason),
+});
+```
+
+A dropped connection never reaches `onGap`, because the browser resumes it by itself and IQ-Stream replays what was missed. The callback only fires when the stream itself breaks, for example if the backend stops publishing in the middle of an answer. The complete setup is in the [IQ-Stream section of the Neuron documentation](https://docs.neuron-ai.dev/agent/streaming#iq-stream).
+
 ## Performance and reliability numbers
 
 Since I built IQ-Stream after months spent fighting the limits of other servers, I wanted numbers, not impressions. We benchmarked it against Mercure, Laravel Reverb, and Soketi, each one in its fastest documented configuration, on AWS Graviton4 machines. The workload simulated realistic agent runs: a streamed text answer, a tool call with streamed arguments, a pause of a second and a half, an 8 KB tool result, and a second answer, for a total of 429 events in about ten seconds per run. One browser in ten dropped its connection in the middle of the answer, because that's what happens in real life. A server passed a load level only if at least 99% of events arrived with a p99 latency under 250 milliseconds, meaning 99 out of 100 events reached the browser within a quarter of a second.
