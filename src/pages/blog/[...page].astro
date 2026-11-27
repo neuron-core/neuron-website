@@ -10,7 +10,7 @@ export const getStaticPaths = (async ({ paginate }) => {
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
   );
 
-  return paginate(posts, { pageSize: 10 });
+  return paginate(posts, { pageSize: 9 });
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
