@@ -23,6 +23,19 @@ const postLastmod = Object.fromEntries(
   }),
 );
 
+// Open every link in blog posts in a new tab
+function rehypeLinksInNewTab() {
+  /** @param {any} node */
+  const visit = (node) => {
+    if (node.type === 'element' && node.tagName === 'a') {
+      node.properties.target = '_blank';
+      node.properties.rel = ['noopener', 'noreferrer'];
+    }
+    node.children?.forEach(visit);
+  };
+  return visit;
+}
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.neuron-ai.dev',
@@ -32,6 +45,7 @@ export default defineConfig({
     processor: unified({
       rehypePlugins: [
         [rehypeHighlight, { languages: { ...common, apache, properties } }],
+        rehypeLinksInNewTab,
       ],
     }),
   },
