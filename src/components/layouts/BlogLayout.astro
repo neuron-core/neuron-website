@@ -6,10 +6,12 @@ interface Props {
   title: string;
   description: string;
   ogImage?: string;
+  ogImageWidth?: number;
+  ogImageHeight?: number;
   ogType?: string;
 }
 
-const { title, description, ogImage, ogType } = Astro.props;
+const { title, description, ogImage, ogImageWidth, ogImageHeight, ogType } = Astro.props;
 ---
 
 <MainLayout
@@ -17,6 +19,8 @@ const { title, description, ogImage, ogType } = Astro.props;
   description={description}
   currentPage="blog"
   ogImage={ogImage}
+  ogImageWidth={ogImageWidth}
+  ogImageHeight={ogImageHeight}
   ogType={ogType}
 >
   <div class="wrapper">
