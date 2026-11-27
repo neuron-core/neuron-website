@@ -2,7 +2,7 @@
 import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
-import BlogLayout from '~components/layouts/BlogLayout.astro';
+import MainLayout from '~components/layouts/MainLayout.astro';
 import Typography from '~components/ui/Typography.astro';
 
 export const getStaticPaths = (async ({ paginate }) => {
@@ -21,86 +21,105 @@ const pageUrl = (n: number) => (n === 1 ? '/blog' : `/blog/${n}`);
 const pageNumbers = Array.from({ length: page.lastPage }, (_, i) => i + 1);
 ---
 
-<BlogLayout
-  title={page.currentPage === 1
-    ? 'Blog — Neuron AI'
-    : `Blog, page ${page.currentPage} — Neuron AI`}
+<MainLayout
+  title={
+    page.currentPage === 1
+      ? 'Blog — Neuron AI'
+      : `Blog, page ${page.currentPage} — Neuron AI`
+  }
   description="Tutorials, release notes and stories about building agentic applications in PHP with Neuron AI."
+  currentPage="blog"
 >
-  <div class="intro">
-    <Typography tag="span" styling="paragraphM" font="pixel" color="agents">
-      NEURON AI / BLOG
-    </Typography>
-    <Typography tag="h1" styling="headingXl">Blog</Typography>
-    <Typography tag="p" styling="paragraphL" color="subtle">
-      Tutorials, release notes and stories about building agentic applications
-      in PHP with Neuron AI.
-    </Typography>
-  </div>
+  <div class="wrapper">
+    <main class="content">
+      <div class="intro">
+        <Typography tag="span" styling="paragraphM" font="pixel" color="agents">
+          NEURON AI / BLOG
+        </Typography>
+        <Typography tag="h1" styling="headingXl">
+          Blog
+        </Typography>
+        <Typography tag="p" styling="paragraphL" color="subtle">
+          Tutorials, release notes and stories about building agentic
+          applications in PHP with Neuron AI.
+        </Typography>
+      </div>
 
-  <div class="grid">
-    {
-      page.data.map((post) => (
-        <a href={`/blog/${post.id}/`} class="card">
-          <Image
-            src={post.data.featured_image}
-            alt=""
-            widths={[480, 960]}
-            sizes="(min-width: 1200px) 452px, (min-width: 768px) 50vw, 100vw"
-            class="thumbnail"
-          />
-          <div class="cardBody">
-            <Typography tag="span" styling="paragraphS" color="soft">
-              <time datetime={post.data.date.toISOString()}>
-                {post.data.date.toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric',
-                  timeZone: 'UTC',
-                })}
-              </time>
-            </Typography>
-            <Typography tag="h2" styling="headingXs">
-              {post.data.title}
-            </Typography>
-            <Typography tag="p" styling="paragraphS" color="subtle">
-              {post.data.description}
-            </Typography>
-          </div>
-        </a>
-      ))
-    }
-  </div>
-
-  {
-    page.lastPage > 1 && (
-      <nav class="pagination" aria-label="Blog pages">
-        {page.url.prev && (
-          <a href={page.url.prev} class="pageLink">
-            ← Newer
-          </a>
-        )}
-        {pageNumbers.map((n) => (
-          <a
-            href={pageUrl(n)}
-            class:list={['pageLink', { active: n === page.currentPage }]}
-            aria-current={n === page.currentPage ? 'page' : undefined}
-          >
-            {n}
+      <div class="grid">
+        {page.data.map((post) => (
+          <a href={`/blog/${post.id}/`} class="card">
+            <Image
+              src={post.data.featured_image}
+              alt=""
+              widths={[480, 960]}
+              sizes="(min-width: 1200px) 417px, (min-width: 768px) 50vw, 100vw"
+              class="thumbnail"
+            />
+            <div class="cardBody">
+              <Typography tag="span" styling="paragraphS" color="soft">
+                <time datetime={post.data.date.toISOString()}>
+                  {post.data.date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    timeZone: 'UTC',
+                  })}
+                </time>
+              </Typography>
+              <Typography tag="h2" styling="headingXs">
+                {post.data.title}
+              </Typography>
+              <Typography tag="p" styling="paragraphS" color="subtle">
+                {post.data.description}
+              </Typography>
+            </div>
           </a>
         ))}
-        {page.url.next && (
-          <a href={page.url.next} class="pageLink">
-            Older →
-          </a>
-        )}
-      </nav>
-    )
-  }
-</BlogLayout>
+      </div>
+
+      {page.lastPage > 1 && (
+        <nav class="pagination" aria-label="Blog pages">
+          {page.url.prev && (
+            <a href={page.url.prev} class="pageLink">
+              ← Newer
+            </a>
+          )}
+          {pageNumbers.map((n) => (
+            <a
+              href={pageUrl(n)}
+              class:list={['pageLink', { active: n === page.currentPage }]}
+              aria-current={n === page.currentPage ? 'page' : undefined}
+            >
+              {n}
+            </a>
+          ))}
+          {page.url.next && (
+            <a href={page.url.next} class="pageLink">
+              Older →
+            </a>
+          )}
+        </nav>
+      )}
+    </main>
+  </div>
+</MainLayout>
 
 <style lang="scss">
   @use '~styles/mixins/media' as *;
+
+  .wrapper {
+    width: 100%;
+  }
+
+  .content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--s-64) 0;
+
+    @include media-min('lg') {
+      padding: var(--s-100) 0;
+    }
+  }
 
   .intro {
     display: flex;
@@ -116,6 +135,10 @@ const pageNumbers = Array.from({ length: page.lastPage }, (_, i) => i + 1);
 
     @include media-min('sm') {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @include media-min('lg') {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 
